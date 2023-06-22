@@ -10,6 +10,8 @@ db.entities.insertMany(
       type: "app", //team //department //part //service //technology //product //doc
       mainLink: "someLink.github.com", //gitHub, //source if doc //could this also be slack chanel?
       // otherLinks: [], //do we need that or is it gonna confuse things?
+      briefDescription: "this is the optimo app, the best app in the world",
+      teamsResponsible: ["DPub"], //automatically add the team of the parent.
 
       properties: {
         docs: [],
@@ -21,8 +23,7 @@ db.entities.insertMany(
       },
       children: [],
       // will this include entities or ids?
-      briefDescription: "this is the optimo app, the best app in the world",
-      teamsResponsible: ["DPub"], //automatically add the team of the parent.
+    
       
       //** */ ..MVP..............................!!!!!!!!!!!!!/\/\/\/\\
       //** */ ..LaterFeatures..............................!!!!!!!!!!!!!\/\/\/\//
@@ -57,15 +58,16 @@ db.entities.insertMany(
         comments: [
           {
             timeStamp: "some date and time",
-            user: "some user Id or name"
+            userId: "some user Id or name",
+            text: "some text"
           }
         ],
-        requestAction: [
+        requestedActions: [
           {
             timeStamp: "some date and time",
             typeOfAction: "some action type",
             description: "some coments",
-            userRequesting: "some user Id or name"
+            requestingUserId: "some user Id or name"
           }
         ]
       },

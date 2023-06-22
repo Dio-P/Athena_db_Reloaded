@@ -5,88 +5,65 @@ const typeDefs = gql `
   scalar JSON
   scalar Date
 
-  type App {
-    # app_id to be checked
+  type Entity {
     id: ID!
     name: String
     type: String
-    gitHubRepo: String
-    briefDescr: String
-    teams: [String]
-    # facing: Facing
-    folders: [Folder]
-    parts: [Part]
-    # connections: [Connection]
+    mainLink: String
+    briefDescription: String
+    teamsResponsible: [String]
     properties: Properties
+    children: [Entity]
+    connections: Connections
   }
 
-  input AppInput {
-    # app_id to be checked
+  type EntityInput {
     id: ID!
     name: String
     type: String
-    gitHubRepo: String
-    briefDescr: String
-    teams: [String]
-    # facing: Facing
-    folders: [FolderInput]
-    parts: [PartInput]
-    # connections: [Connection]
+    mainLink: String
+    briefDescription: String
+    teamsResponsible: [String]
     properties: PropertiesInput
+    children: [Entity]
+    connections: ConnectionsInput
+    interactions: Interactions
   }
-
-  type Facing {
-    user: Boolean
-    audience: Boolean
-  }
-
-  input FacingInput {
-    user: Boolean
-    audience: Boolean
-  }
-
-  type Folder {
-    name: String
-    id: Int
-    parts: [Part]
-  }
-
-  input FolderInput {
-    name: String
-    id: Int
-    parts: [PartInput]
-  }
-
-  type Part {
-    name: String
-    id: String
-    ghRepo: String
-    type: String
-    folderToBeDisplayedIn: String!
-    appParent: String,
-    docs: [Doc]
-  }
-
-  input PartInput {
-    name: String
-    id: String
-    ghRepo: String
-    type: String
-    folderToBeDisplayedIn: String!
-    appParent: String,
-    docs: [DocInput]
-  }
-
-  # type Connection {
-
-  # }
 
   type Properties {
     docs: [Doc]
+    tags: [String]
+    technologies: [Technology]
   }
 
-  input PropertiesInput {
+  type PropertiesInput {
     docs: [DocInput]
+    tags: [String]
+    technologies: [TechnologyInput]
+  }
+
+  type Connections {
+    audienceFacing: Boolean
+    receivesDataFrom: [ConnectedEntity]
+    givesDataTo: [ConnectedEntity]
+  }
+
+  type ConnectionsInput {
+    audienceFacing: Boolean
+    receivesDataFrom: [ConnectedEntityInput]
+    givesDataTo: [ConnectedEntityInput]
+  }
+
+  type Interactions {
+    isLinkUpToDate: Boolean
+    comments: [Comment]
+    requestedActions: [RequestedActions]
+  }
+
+  type InteractionsInput {
+    isLinkUpToDate: Boolean
+    comments: [CommentInput]
+    requestedActions: [RequestedActionsInput]
   }
 
   type Doc {
@@ -96,7 +73,6 @@ const typeDefs = gql `
     source: String
     lastModified: String
     concerningParts: [ID]
-    flags: Flags
   }
 
   input DocInput {
@@ -106,15 +82,52 @@ const typeDefs = gql `
     source: String
     lastModified: String
     concerningParts: [ID]
-    flags: FlagsInput
+  }
+  
+  input Technology {
+
   }
 
-  type Flags {
-    isLinkUpToDate: Boolean
+  input TechnologyInput {
+
   }
 
-  input FlagsInput {
-    isLinkUpToDate: Boolean
+  type ConnectedEntity {
+    id: String!,
+    name: String,
+    shortDescription: String
+  }
+
+  type ConnectedEntityInput {
+    id: String!,
+    name: String,
+    shortDescription: String
+  }
+
+  type Comment {
+    timeStamp: String,
+    userId: String,
+    text: String
+  }
+
+  type CommentInput {
+    timeStamp: String,
+    userId: String,
+    text: String
+  }
+
+  type RequestedActions {
+    timeStamp: String,
+    typeOfAction: String,
+    description: String,
+    requestingUserId: String
+  }
+
+  type RequestedActionsInput {
+    timeStamp: String,
+    typeOfAction: String,
+    description: String,
+    requestingUserId: String
   }
 
   type Query {
