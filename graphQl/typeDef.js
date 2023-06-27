@@ -15,9 +15,11 @@ const typeDefs = gql `
     properties: Properties
     children: [Entity]
     connections: Connections
+    interactions: Interactions
+
   }
 
-  type EntityInput {
+  input EntityInput {
     id: ID!
     name: String
     type: String
@@ -25,9 +27,9 @@ const typeDefs = gql `
     briefDescription: String
     teamsResponsible: [String]
     properties: PropertiesInput
-    children: [Entity]
+    children: [EntityInput]
     connections: ConnectionsInput
-    interactions: Interactions
+    interactions: InteractionsInput
   }
 
   type Properties {
@@ -36,7 +38,7 @@ const typeDefs = gql `
     technologies: [Technology]
   }
 
-  type PropertiesInput {
+  input PropertiesInput {
     docs: [DocInput]
     tags: [String]
     technologies: [TechnologyInput]
@@ -48,7 +50,7 @@ const typeDefs = gql `
     givesDataTo: [ConnectedEntity]
   }
 
-  type ConnectionsInput {
+  input ConnectionsInput {
     audienceFacing: Boolean
     receivesDataFrom: [ConnectedEntityInput]
     givesDataTo: [ConnectedEntityInput]
@@ -60,7 +62,7 @@ const typeDefs = gql `
     requestedActions: [RequestedActions]
   }
 
-  type InteractionsInput {
+  input InteractionsInput {
     isLinkUpToDate: Boolean
     comments: [CommentInput]
     requestedActions: [RequestedActionsInput]
@@ -84,12 +86,12 @@ const typeDefs = gql `
     concerningParts: [ID]
   }
   
-  input Technology {
-
+  type Technology {
+    name: String!,
   }
 
   input TechnologyInput {
-
+    name: String!,
   }
 
   type ConnectedEntity {
@@ -98,7 +100,7 @@ const typeDefs = gql `
     shortDescription: String
   }
 
-  type ConnectedEntityInput {
+  input ConnectedEntityInput {
     id: String!,
     name: String,
     shortDescription: String
@@ -110,7 +112,7 @@ const typeDefs = gql `
     text: String
   }
 
-  type CommentInput {
+  input CommentInput {
     timeStamp: String,
     userId: String,
     text: String
@@ -123,7 +125,7 @@ const typeDefs = gql `
     requestingUserId: String
   }
 
-  type RequestedActionsInput {
+  input RequestedActionsInput {
     timeStamp: String,
     typeOfAction: String,
     description: String,
@@ -131,21 +133,21 @@ const typeDefs = gql `
   }
 
   type Query {
-    getAppsName(ids: [ID!]!): [String]
-    getAppById(id: ID!): App
-    getAppWithFoldersById(id: ID!): App
-    getAppByName(name: String!): App
-    getAppsByTeam(team: String!): [App]
-    getPartById(partId: String!): Part
+    getEntityById(id: ID!): Entity
+    # getAppsName(ids: [ID!]!): [String]
+    # getAppWithFoldersById(id: ID!): App
+    # getAppByName(name: String!): App
+    # getAppsByTeam(team: String!): [App]
+    # getPartById(partId: String!): Part
   }
 
   type Mutation {
-    addNewApp(newApp: AppInput!): App
-    updateAppById(id: ID!, app: AppInput!): App
-    deleteAppById(id: ID!): ID 
-    addNewPart(appID: ID!, newPart: PartInput!, additionalFolders: [FolderInput]): Part
-    updatePartById(id: String!, updatedPart: PartInput!): App
-    deletePartById(id: String!): App
+    addNewEntity(newEntity: EntityInput!): Entity
+    updateEntityById(id: ID!, entity: EntityInput!): Entity
+    # deleteAppById(id: ID!): ID 
+    # addNewPart(appID: ID!, newPart: PartInput!, additionalFolders: [FolderInput]): Part
+    # updatePartById(id: String!, updatedPart: PartInput!): App
+    # deletePartById(id: String!): App
 
   }
 `
