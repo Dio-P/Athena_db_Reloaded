@@ -8,6 +8,7 @@ db.entities.insertMany(
       //** */ ..MVP..............................!!!!!!!!!!!!!\/\/\/\//
       name: "optimo",
       type: "app", //team //department //part //service //technology //product //doc
+      leader: "Matt",
       mainLink: "someLink.github.com", //gitHub, //source if doc //could this also be slack chanel?
       // otherLinks: [], //do we need that or is it gonna confuse things?
       briefDescription: "this is the optimo app, the best app in the world",
@@ -71,7 +72,109 @@ db.entities.insertMany(
           }
         ]
       },
-    }
+    },
+    // ...........................
+    {
+      name: "bbc",
+      type: "company",
+      leader: "Tim Davie", 
+      mainLink: "www.bbc.co.uk",
+      briefDescription: "British Broadcast Corporation",
+      teamsResponsible: ["DPub"], //?
+      properties: {
+        docs: [],
+        tags: [],
+        technologies: [],
+      },
+      children: [],
+      connections: {
+        audienceFacing: false,
+        receivesDataFrom: [
+          {
+            id: "some Entity id",
+            name: "someEntityName",
+            shortDescription: "what do the data do"
+          },
+        ], 
+        givesDataTo: [
+          {
+            id: "some Entity id",
+            name: "someEntityName",
+            shortDescription: "what do the data do"
+          },
+        ],       
+        
+      },
+      interactions: {
+        isLinkUpToDate: true,
+        comments: [
+          {
+            timeStamp: "some date and time",
+            userId: "some user Id or name",
+            text: "some text"
+          }
+        ],
+        requestedActions: [
+          {
+            timeStamp: "some date and time",
+            typeOfAction: "some action type",
+            description: "some coments",
+            requestingUserId: "some user Id or name"
+          }
+        ]
+      },
+    },
+    // ...........................
+    {
+      name: "bbc",
+      type: "doc",
+      leader: undefined, 
+      mainLink: "www.bbc.co.uk",
+      briefDescription: "British Broadcast Corporation",
+      teamsResponsible: ["DPub"], //?
+      properties: {
+        docs: [],
+        tags: [],
+        technologies: [],
+      },
+      children: [],
+      connections: {
+        audienceFacing: false,
+        receivesDataFrom: [
+          {
+            id: "some Entity id",
+            name: "someEntityName",
+            shortDescription: "what do the data do"
+          },
+        ], 
+        givesDataTo: [
+          {
+            id: "some Entity id",
+            name: "someEntityName",
+            shortDescription: "what do the data do"
+          },
+        ],       
+        
+      },
+      interactions: {
+        isLinkUpToDate: true,
+        comments: [
+          {
+            timeStamp: "some date and time",
+            userId: "some user Id or name",
+            text: "some text"
+          }
+        ],
+        requestedActions: [
+          {
+            timeStamp: "some date and time",
+            typeOfAction: "some action type",
+            description: "some coments",
+            requestingUserId: "some user Id or name"
+          }
+        ]
+      },
+    },
   ]
 );
 
