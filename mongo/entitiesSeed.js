@@ -80,7 +80,46 @@ db.entities.insertMany(
       leader: "Tim Davie", 
       mainLink: "www.bbc.co.uk",
       briefDescription: "British Broadcast Corporation",
-      teamsResponsible: ["DPub"], //?
+      teamsResponsible: null,
+      properties: {
+        docs: [], //entities
+        tags: [], //strings
+        technologies: [], //entities
+      },
+      children: [],
+      connections: {
+        audienceFacing: false,
+        receivesDataFrom: undefined, //array of entity
+        givesDataTo: undefined, //array of entity      
+        
+      },
+      interactions: {
+        isLinkUpToDate: true,
+        comments: [
+          {
+            timeStamp: "some date and time",
+            userId: "some user Id or name",
+            text: "some text"
+          }
+        ],
+        requestedActions: [
+          {
+            timeStamp: "some date and time",
+            typeOfAction: "some action type",
+            description: "some comments",
+            requestingUserId: "some user Id or name"
+          }
+        ]
+      },
+    },
+    // ...........................
+    {
+      name: "bbc",
+      type: "doc",
+      leader: undefined, 
+      mainLink: "www.somebbcDoc.co.uk",
+      briefDescription: "Main goals or some other goal",
+      teamsResponsible: undefined,
       properties: {
         docs: [],
         tags: [],
@@ -89,20 +128,8 @@ db.entities.insertMany(
       children: [],
       connections: {
         audienceFacing: false,
-        receivesDataFrom: [
-          {
-            id: "some Entity id",
-            name: "someEntityName",
-            shortDescription: "what do the data do"
-          },
-        ], 
-        givesDataTo: [
-          {
-            id: "some Entity id",
-            name: "someEntityName",
-            shortDescription: "what do the data do"
-          },
-        ],       
+        receivesDataFrom: undefined, 
+        givesDataTo: undefined,       
         
       },
       interactions: {
@@ -126,12 +153,12 @@ db.entities.insertMany(
     },
     // ...........................
     {
-      name: "bbc",
-      type: "doc",
-      leader: undefined, 
-      mainLink: "www.bbc.co.uk",
-      briefDescription: "British Broadcast Corporation",
-      teamsResponsible: ["DPub"], //?
+      name: "Product Group",
+      type: "department", //or group
+      leader: "David Andrade", 
+      mainLink: "www.somebbcDoc.co.uk",
+      briefDescription: "Product Engineering group",
+      teamsResponsible: ["someEntityIdResponsibleForTheDoc"],
       properties: {
         docs: [],
         tags: [],
@@ -140,20 +167,8 @@ db.entities.insertMany(
       children: [],
       connections: {
         audienceFacing: false,
-        receivesDataFrom: [
-          {
-            id: "some Entity id",
-            name: "someEntityName",
-            shortDescription: "what do the data do"
-          },
-        ], 
-        givesDataTo: [
-          {
-            id: "some Entity id",
-            name: "someEntityName",
-            shortDescription: "what do the data do"
-          },
-        ],       
+        receivesDataFrom: undefined, 
+        givesDataTo: undefined,       
         
       },
       interactions: {

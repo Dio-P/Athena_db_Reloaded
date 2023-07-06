@@ -13,7 +13,7 @@ const typeDefs = gql `
     briefDescription: String
     teamsResponsible: [String]
     properties: Properties
-    children: [Entity]
+    children: [String]
     connections: Connections
     interactions: Interactions
 
@@ -27,15 +27,15 @@ const typeDefs = gql `
     briefDescription: String
     teamsResponsible: [String]
     properties: PropertiesInput
-    children: [EntityInput]
+    children: [String]
     connections: ConnectionsInput
     interactions: InteractionsInput
   }
 
   type Properties {
-    docs: [Doc]
+    docs: [String]
     tags: [String]
-    technologies: [Technology]
+    technologies: [String]
   }
 
   input PropertiesInput {
@@ -46,14 +46,14 @@ const typeDefs = gql `
 
   type Connections {
     audienceFacing: Boolean
-    receivesDataFrom: [ConnectedEntity]
-    givesDataTo: [ConnectedEntity]
+    receivesDataFrom: [String]
+    givesDataTo: [String]
   }
 
   input ConnectionsInput {
     audienceFacing: Boolean
-    receivesDataFrom: [ConnectedEntityInput]
-    givesDataTo: [ConnectedEntityInput]
+    receivesDataFrom: [String]
+    givesDataTo: [String]
   }
 
   type Interactions {
@@ -66,44 +66,6 @@ const typeDefs = gql `
     isLinkUpToDate: Boolean
     comments: [CommentInput]
     requestedActions: [RequestedActionsInput]
-  }
-
-  type Doc {
-    name: String
-    url: String
-    id: String
-    source: String
-    lastModified: String
-    concerningParts: [ID]
-  }
-
-  input DocInput {
-    name: String
-    url: String
-    id: String
-    source: String
-    lastModified: String
-    concerningParts: [ID]
-  }
-  
-  type Technology {
-    name: String!,
-  }
-
-  input TechnologyInput {
-    name: String!,
-  }
-
-  type ConnectedEntity {
-    id: String!,
-    name: String,
-    shortDescription: String
-  }
-
-  input ConnectedEntityInput {
-    id: String!,
-    name: String,
-    shortDescription: String
   }
 
   type Comment {
