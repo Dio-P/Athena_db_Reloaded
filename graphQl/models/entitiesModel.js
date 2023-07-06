@@ -27,7 +27,7 @@ export function EntitiesModel() {
     async getEntityById(args){
       console.log("inside getEntityById");
       console.log("args.id", args.id);
-      const dbRes = await entitiesCollection.findOne({ _id: ObjectID(args.id) });
+      const dbRes = await entitiesCollection.findOne({ id: args.id });
       // console.log("dbRes", dbRes);
       const app = toEntity(dbRes);
       // console.log("app", app);
