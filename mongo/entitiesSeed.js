@@ -6,6 +6,7 @@ db.entities.insertMany(
   [
     {
       //** */ ..MVP..............................!!!!!!!!!!!!!\/\/\/\//
+      id: "6",
       name: "optimo",
       type: "app", //team //department //part //service //technology //product //doc
       leader: "Matt",
@@ -67,7 +68,7 @@ db.entities.insertMany(
           {
             timeStamp: "some date and time",
             typeOfAction: "some action type",
-            description: "some coments",
+            description: "some comments",
             requestingUserId: "some user Id or name"
           }
         ]
@@ -75,6 +76,7 @@ db.entities.insertMany(
     },
     // ...........................
     {
+      id: "1",
       name: "bbc",
       type: "company",
       leader: "Tim Davie", 
@@ -82,11 +84,11 @@ db.entities.insertMany(
       briefDescription: "British Broadcast Corporation",
       teamsResponsible: null,
       properties: {
-        docs: [], //entities
+        docs: ["2"], //entities
         tags: [], //strings
         technologies: [], //entities
       },
-      children: [],
+      children: ["3"],
       connections: {
         audienceFacing: false,
         receivesDataFrom: undefined, //array of entity
@@ -114,6 +116,7 @@ db.entities.insertMany(
     },
     // ...........................
     {
+      id: "2",
       name: "bbc",
       type: "doc",
       leader: undefined, 
@@ -153,6 +156,7 @@ db.entities.insertMany(
     },
     // ...........................
     {
+      id: "3",
       name: "Product Group",
       type: "department", //or group
       leader: "David Andrade", 
@@ -160,11 +164,91 @@ db.entities.insertMany(
       briefDescription: "Product Engineering group",
       teamsResponsible: ["someEntityIdResponsibleForTheDoc"],
       properties: {
-        docs: [],
+        docs: ["2"],
         tags: [],
         technologies: [],
       },
-      children: [],
+      children: ["4"],
+      connections: {
+        audienceFacing: false,
+        receivesDataFrom: undefined, 
+        givesDataTo: undefined,       
+        
+      },
+      interactions: {
+        isLinkUpToDate: true,
+        comments: [
+          {
+            timeStamp: "some date and time",
+            userId: "some user Id or name",
+            text: "some text"
+          }
+        ],
+        requestedActions: [
+          {
+            timeStamp: "some date and time",
+            typeOfAction: "some action type",
+            description: "some coments",
+            requestingUserId: "some user Id or name"
+          }
+        ]
+      },
+    },
+    // ...........................
+    {
+      id: "4",
+      name: "CPub",
+      type: "team", //or group
+      leader: "Danny Morgan", 
+      mainLink: "www.somebbcDoc.co.uk",
+      briefDescription: "Content Publishing",
+      teamsResponsible: undefined,
+      properties: {
+        docs: ["2"],
+        tags: [],
+        technologies: [],
+      },
+      children: ["5"],
+      connections: {
+        audienceFacing: false,
+        receivesDataFrom: undefined, 
+        givesDataTo: undefined,       
+        
+      },
+      interactions: {
+        isLinkUpToDate: true,
+        comments: [
+          {
+            timeStamp: "some date and time",
+            userId: "some user Id or name",
+            text: "some text"
+          }
+        ],
+        requestedActions: [
+          {
+            timeStamp: "some date and time",
+            typeOfAction: "some action type",
+            description: "some coments",
+            requestingUserId: "some user Id or name"
+          }
+        ]
+      },
+    },
+    // ...........................
+    {
+      id: "5",
+      name: "Authoring",
+      type: "subTeam", //or group
+      leader: "Matt Greenham", 
+      mainLink: "www.authoringSlack.Chanel.co.uk",
+      briefDescription: "Content Publishing",
+      teamsResponsible: undefined,
+      properties: {
+        docs: ["2"],
+        tags: [],
+        technologies: [],
+      },
+      children: ["6"],
       connections: {
         audienceFacing: false,
         receivesDataFrom: undefined, 

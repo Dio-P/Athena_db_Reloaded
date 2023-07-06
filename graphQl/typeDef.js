@@ -39,9 +39,9 @@ const typeDefs = gql `
   }
 
   input PropertiesInput {
-    docs: [DocInput]
+    docs: [String]
     tags: [String]
-    technologies: [TechnologyInput]
+    technologies: [String]
   }
 
   type Connections {

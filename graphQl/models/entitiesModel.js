@@ -25,12 +25,13 @@ export function EntitiesModel() {
     },
 
     async getEntityById(args){
-      // console.log("args.id", args.id);
+      console.log("inside getEntityById");
+      console.log("args.id", args.id);
       const dbRes = await entitiesCollection.findOne({ _id: ObjectID(args.id) });
       // console.log("dbRes", dbRes);
       const app = toEntity(dbRes);
       // console.log("app", app);
-      return app
+      return dbRes
     },
 
     async updateEntityById(args){
