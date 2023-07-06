@@ -17,34 +17,34 @@ const toEntity = (entity) => {
 export function EntitiesModel() {
   return {
   
-    async addNewEntity({newApp}){
-      console.log("inside addNewApp");
-      entitiesCollection.insertOne(newApp);
-      const dbRes = await entitiesCollection.findOne({ name: newApp.name });
-      return dbRes
-    },
+    // async addNewEntity({newApp}){
+    //   console.log("inside addNewApp");
+    //   entitiesCollection.insertOne(newApp);
+    //   const dbRes = await entitiesCollection.findOne({ name: newApp.name });
+    //   return dbRes
+    // },
 
     async getEntityById(args){
-      console.log("inside getEntityById");
-      console.log("args.id", args.id);
       const dbRes = await entitiesCollection.findOne({ id: args.id });
-      // console.log("dbRes", dbRes);
-      const app = toEntity(dbRes);
-      // console.log("app", app);
       return dbRes
     },
 
-    async updateEntityById(args){
-      console.log("updateAppById");
-      console.log("args.id", args.id);
-      // console.log("args.app", args.app);
-      await entitiesCollection.updateOne({ _id: ObjectID(args.id) }, {$set:args.app});
-      // const app = toApp(dbRes);
-      // // console.log("app", app);
-      const appToBeReplaced = await entitiesCollection.findOne({ _id: ObjectID(args.id) });;
-      console.log("appToBeReplaced", appToBeReplaced);
-      return appToBeReplaced
+    async getChildrenById(args){
+      const dbRes = await entitiesCollection.findOne({ id: args.id });
+      return dbRes
     },
+
+    // async updateEntityById(args){
+    //   console.log("updateAppById");
+    //   console.log("args.id", args.id);
+    //   // console.log("args.app", args.app);
+    //   await entitiesCollection.updateOne({ _id: ObjectID(args.id) }, {$set:args.app});
+    //   // const app = toApp(dbRes);
+    //   // // console.log("app", app);
+    //   const appToBeReplaced = await entitiesCollection.findOne({ _id: ObjectID(args.id) });;
+    //   console.log("appToBeReplaced", appToBeReplaced);
+    //   return appToBeReplaced
+    // },
 
     // async getAppWithFoldersById(args){
     //   // console.log("args.id", args.id);
