@@ -29,8 +29,10 @@ export function EntitiesModel() {
       return dbRes
     },
 
-    async getChildrenById(args){
-      const dbRes = await entitiesCollection.findOne({ id: args.id });
+    async getChildrenById({ ids }){
+      console.log("inside getChildrenById", ids);
+      const dbResRaw = await entitiesCollection.find( { id: { $in: ids } })
+      const dbRes = await dbResRaw.toArray();
       return dbRes
     },
 
