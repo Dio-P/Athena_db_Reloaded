@@ -34,27 +34,52 @@ db.entities.insertMany(
  
       connections: {
         audienceFacing: false,
-        receivesDataFrom: [
-          //those could be internal or external entities, so we do need an id
-          // the id could by build so to point to this app or another and make a call 
-         // only if it points to another.
-          {
-            id: "some Entity id",
-            name: "someEntityName",
-            shortDescription: "what do the data do"
-          },
-        ], 
-        givesDataTo: [
-          {
-            id: "some Entity id",
-            name: "someEntityName",
-            shortDescription: "what do the data do"
-          },
-        ],       
+        receivesDataFrom: ["2"], 
+        givesDataTo: ["2"],       
         
       },
       // can we have a value as depth level where the display could be filtered out against ?
       // (ex. I want to filter only dept1 I get the departments, depth2 teams, three apps) //would that lead to the silliness of having a big bbc entity to include all ?
+      interactions: {
+        isLinkUpToDate: true,
+        comments: [
+          {
+            timeStamp: "some date and time",
+            userId: "some user Id or name",
+            text: "some text"
+          }
+        ],
+        requestedActions: [
+          {
+            timeStamp: "some date and time",
+            typeOfAction: "some action type",
+            description: "some comments",
+            requestingUserId: "some user Id or name"
+          }
+        ]
+      },
+    },
+    // ...........................
+    {
+      id: "7",
+      name: "IGM",
+      type: "app",
+      leader: "A team",
+      mainLink: "someLink.github.com",
+      briefDescription: "this is the optimo app, the best app in the world",
+      teamsResponsible: ["DPub"],
+      properties: {
+        docs: [],
+        tags: [],
+        technologies: [],
+      },
+      children: [],
+      connections: {
+        audienceFacing: false,
+        receivesDataFrom: ["2"], 
+        givesDataTo: ["2"],       
+        
+      },
       interactions: {
         isLinkUpToDate: true,
         comments: [
@@ -248,7 +273,7 @@ db.entities.insertMany(
         tags: [],
         technologies: [],
       },
-      children: ["6"],
+      children: ["6", "7"],
       connections: {
         audienceFacing: false,
         receivesDataFrom: undefined, 

@@ -33,6 +33,7 @@ export function EntitiesModel() {
       console.log("inside getChildrenById", ids);
       const dbResRaw = await entitiesCollection.find( { id: { $in: ids } })
       const dbRes = await dbResRaw.toArray();
+      console.log("dbRes:", dbRes);
       return dbRes
     },
 
