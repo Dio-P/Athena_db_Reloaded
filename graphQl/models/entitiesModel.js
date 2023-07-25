@@ -43,6 +43,12 @@ export function EntitiesModel() {
       return dbResRaw
     },
 
+    async filterEntityByQueryString({ queryString }){
+      const dbResRaw = await entitiesCollection.find( { $text: { $search: queryString } } )
+      console.log("dbResRaw:", dbResRaw);
+      return dbResRaw
+    },
+
     // async updateEntityById(args){
     //   console.log("updateAppById");
     //   console.log("args.id", args.id);
