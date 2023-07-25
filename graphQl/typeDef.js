@@ -97,6 +97,7 @@ const typeDefs = gql `
   type Query {
     getEntityById(id: ID!): Entity
     getChildrenById(ids: [ID]!): [Entity]
+    getEveryEntityName: [String]
     # getAppsName(ids: [ID!]!): [String]
     # getAppWithFoldersById(id: ID!): App
     # getAppByName(name: String!): App

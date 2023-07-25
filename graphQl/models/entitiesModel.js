@@ -37,6 +37,12 @@ export function EntitiesModel() {
       return dbRes
     },
 
+    async getEveryEntityName( ){
+      const dbResRaw = await entitiesCollection.distinct('name')
+      console.log("dbResRaw:", dbResRaw);
+      return dbResRaw
+    },
+
     // async updateEntityById(args){
     //   console.log("updateAppById");
     //   console.log("args.id", args.id);
