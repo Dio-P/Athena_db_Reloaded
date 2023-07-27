@@ -1,5 +1,15 @@
 use entities_db
 db.dropDatabase();
+db.entities.createIndex(
+  {
+    name: "text",
+    type: "text",
+    leader: "text",
+    mainLink: "text",
+    briefDescription: "text",
+    teamsResponsible: "text",
+  }
+)
 
 // change apps to include also terms and technologies
 db.entities.insertMany(

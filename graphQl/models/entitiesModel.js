@@ -37,17 +37,37 @@ export function EntitiesModel() {
       return dbRes
     },
 
+    async filterEntityByQueryString({ queryString }){
+      console.log("queryString", queryString);
+      const dbResRaw = await entitiesCollection.find( { $text: { $search: `${queryString}` } } ) 
+      // console.log("dbResRaw:", dbResRaw);
+      const dbRes = await dbResRaw.toArray();
+      console.log("dbRes:", dbRes);
+      return dbRes
+    },
+
     async getEveryEntityName( ){
       const dbResRaw = await entitiesCollection.distinct('name')
       console.log("dbResRaw:", dbResRaw);
       return dbResRaw
     },
 
-    async filterEntityByQueryString({ queryString }){
-      const dbResRaw = await entitiesCollection.find( { $text: { $search: queryString } } )
-      console.log("dbResRaw:", dbResRaw);
+    async getEveryEntityNameAndId( ){
+      const dbResRaw = await entitiesCollection.aggregate( [ { $group : { "$name": "$id"} } ] )
+      console.log("dbResRaw:", dbResRaw.toArray());
       return dbResRaw
     },
+
+    // async filterEntityByQueryString({ queryString }){
+    //   const dbResRaw = await entitiesCollection.find( { $text: { $search: queryString } } )
+    //   console.log("dbResRaw:", dbResRaw);
+    //   return dbResRaw
+    // },
+
+
+
+
+
 
     // async updateEntityById(args){
     //   console.log("updateAppById");
