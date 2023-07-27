@@ -54,10 +54,10 @@ export function EntitiesModel() {
     },
 
     async filterTagsBySearchString({ queryString }){
+      console.log("queryString*", queryString);
       const dbResRaw = await entitiesCollection.find(
-          { 'properties.tags': { $regex: queryString}});
-  
-             
+        { 'properties.tags': { $regex: queryString}}
+      );
       console.log("dbResRaw:", dbResRaw);
 
       const dbRes = await dbResRaw.toArray();
