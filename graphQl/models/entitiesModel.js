@@ -38,7 +38,7 @@ export function EntitiesModel() {
     },
 
     async filterEntityByQueryString({ queryString }){
-      console.log("queryString", queryString);
+      console.log("queryString: .......>", queryString);
       const dbResRaw = await entitiesCollection.find({
         "$or": [
           { name: { $regex: queryString}},
@@ -55,6 +55,12 @@ export function EntitiesModel() {
 
     async getEveryEntityName( ){
       const dbResRaw = await entitiesCollection.distinct('name')
+      console.log("dbResRaw:", dbResRaw);
+      return dbResRaw
+    },
+
+    async getAllTags( ){
+      const dbResRaw = await entitiesCollection.distinct('properties.tags')
       console.log("dbResRaw:", dbResRaw);
       return dbResRaw
     },

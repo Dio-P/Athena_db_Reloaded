@@ -29,7 +29,7 @@ db.entities.insertMany(
         docs: [],
         // tags not as closed folders to display the parts in 
         //but as color changing display and filtering capability
-        tags: [],
+        tags: ["app"],
         technologies: [],
         // initials: [], //the initials are not initial are services, technologies
       },
@@ -80,7 +80,7 @@ db.entities.insertMany(
       teamsResponsible: ["DPub"],
       properties: {
         docs: [],
-        tags: [],
+        tags: ["third"],
         technologies: [],
       },
       children: [],
@@ -120,7 +120,7 @@ db.entities.insertMany(
       teamsResponsible: null,
       properties: {
         docs: ["2"], //entities
-        tags: [], //strings
+        tags: ["second"], //strings
         technologies: [], //entities
       },
       children: ["3"],
@@ -160,7 +160,7 @@ db.entities.insertMany(
       teamsResponsible: undefined,
       properties: {
         docs: [],
-        tags: [],
+        tags: ["first"],
         technologies: [],
       },
       children: [],
