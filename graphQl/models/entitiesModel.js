@@ -39,8 +39,9 @@ export function EntitiesModel() {
 
     async filterEntityByQueryString({ queryString }){
       console.log("queryString", queryString);
-      const dbResRaw = await entitiesCollection.find( { $text: { $search: `${queryString}` } } ) 
-      // console.log("dbResRaw:", dbResRaw);
+      const dbResRaw = await entitiesCollection.find( { name: { $regex: queryString}} ) 
+      // const dbResRaw = await entitiesCollection.find( { $text: { $search: `${queryString}` } } ) 
+      // console.log("dbResRaw:", dbResRaw);{$regex : "son"}
       const dbRes = await dbResRaw.toArray();
       console.log("dbRes:", dbRes);
       return dbRes
