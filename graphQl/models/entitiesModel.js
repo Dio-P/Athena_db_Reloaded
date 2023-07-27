@@ -53,17 +53,29 @@ export function EntitiesModel() {
       return dbRes
     },
 
+    async filterTagsBySearchString({ queryString }){
+      const dbResRaw = await entitiesCollection.find(
+          { 'properties.tags': { $regex: queryString}});
+  
+             
+      console.log("dbResRaw:", dbResRaw);
+
+      const dbRes = await dbResRaw.toArray();
+      console.log("dbRes:", dbRes);
+      return dbRes
+    },
+
     async getEveryEntityName( ){
       const dbResRaw = await entitiesCollection.distinct('name')
       console.log("dbResRaw:", dbResRaw);
       return dbResRaw
     },
 
-    async getAllTags( ){
-      const dbResRaw = await entitiesCollection.distinct('properties.tags')
-      console.log("dbResRaw:", dbResRaw);
-      return dbResRaw
-    },
+    // async getAllTags( ){
+    //   const dbResRaw = await entitiesCollection.distinct('properties.tags')
+    //   console.log("dbResRaw:", dbResRaw);
+    //   return dbResRaw
+    // },
 
     async getEveryEntityNameAndId( ){
       const dbResRaw = await entitiesCollection.aggregate( [ { $group : { "$name": "$id"} } ] )
