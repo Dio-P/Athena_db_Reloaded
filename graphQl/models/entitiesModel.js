@@ -3,20 +3,16 @@ import { entitiesCollection } from "../../index.js";
 import { ObjectID } from "bson";
 import { updateWithFolders } from "../../helpers/updateDbDocsLogic.js";
 const toEntity = (entity) => {
-  const {
-    _id,
-    ...entityWithNoId
-  } = entity;
+  const { _id, ...entityWithNoId } = entity;
 
   return {
     id: _id,
-    ...entityWithNoId
-  }
-}
+    ...entityWithNoId,
+  };
+};
 
 export function EntitiesModel() {
   return {
-  
     // async addNewEntity({newApp}){
     //   console.log("inside addNewApp");
     //   entitiesCollection.insertOne(newApp);
@@ -24,51 +20,65 @@ export function EntitiesModel() {
     //   return dbRes
     // },
 
-    async getEntityById(args){
+    async getEntityById(args) {
       const dbRes = await entitiesCollection.findOne({ id: args.id });
-      return dbRes
+      return dbRes;
     },
 
-    async getChildrenById({ ids }){
+    async getChildrenById({ ids }) {
       console.log("inside getChildrenById", ids);
-      const dbResRaw = await entitiesCollection.find( { id: { $in: ids } })
+      const dbResRaw = await entitiesCollection.find({ id: { $in: ids } });
       const dbRes = await dbResRaw.toArray();
       console.log("dbRes:", dbRes);
-      return dbRes
+      return dbRes;
     },
 
-    async filterEntityByQueryString({ queryString }){
+    async filterEntityByQueryString({ queryString }) {
       console.log("queryString: .......>", queryString);
       const dbResRaw = await entitiesCollection.find({
-        "$or": [
-          { name: { $regex: queryString}},
-          { briefDescription: { $regex: queryString}},
-          { mainLink: { $regex: queryString}},
+        $or: [
+          { name: { $regex: queryString } },
+          { briefDescription: { $regex: queryString } },
+          { mainLink: { $regex: queryString } },
           // { type: { $regex: queryString}},
-        ]}) 
-      // const dbResRaw = await entitiesCollection.find( { $text: { $search: `${queryString}` } } ) 
+        ],
+      });
+      // const dbResRaw = await entitiesCollection.find( { $text: { $search: `${queryString}` } } )
       // console.log("dbResRaw:", dbResRaw);{$regex : "son"}
       const dbRes = await dbResRaw.toArray();
       console.log("dbRes:", dbRes);
-      return dbRes
+      return dbRes;
     },
 
-    async filterTagsBySearchString({ queryString }){
+    async filterTagsBySearchString({ queryString }) {
       console.log("queryString*", queryString);
-      const dbResRaw = await entitiesCollection.find(
-        { 'properties.tags': { $regex: queryString}}
-      );
+      const dbResRaw = await entitiesCollection.find({
+        "properties.tags": { $regex: queryString },
+      });
       console.log("dbResRaw:", dbResRaw);
 
       const dbRes = await dbResRaw.toArray();
       console.log("dbRes:", dbRes);
-      return dbRes
+      return dbRes;
     },
 
-    async getEveryEntityName( ){
-      const dbResRaw = await entitiesCollection.distinct('name')
+    async customEntitySearch({ tags, name }) {
+      console.log("tags, name*", tags, name);
+      const dbResRaw = await entitiesCollection.find({
+        $and: [
+          { "properties.tags": { $not: { $nin: tags } }},
+          { name },
+        ],
+      });
+      const dbRes = await dbResRaw.toArray();
+      console.log("dbRes:", dbRes);
+      return dbRes;
+    },
+
+    async getEveryEntityName() {
+      const dbResRaw = await entitiesCollection.distinct("name");
       console.log("dbResRaw:", dbResRaw);
-      return dbResRaw
+      return dbResRaw;
     },
 
     // async getAllTags( ){
@@ -77,10 +87,12 @@ export function EntitiesModel() {
     //   return dbResRaw
     // },
 
-    async getEveryEntityNameAndId( ){
-      const dbResRaw = await entitiesCollection.aggregate( [ { $group : { "$name": "$id"} } ] )
+    async getEveryEntityNameAndId() {
+      const dbResRaw = await entitiesCollection.aggregate([
+        { $group: { $name: "$id" } },
+      ]);
       console.log("dbResRaw:", dbResRaw.toArray());
-      return dbResRaw
+      return dbResRaw;
     },
 
     // async filterEntityByQueryString({ queryString }){
@@ -88,11 +100,6 @@ export function EntitiesModel() {
     //   console.log("dbResRaw:", dbResRaw);
     //   return dbResRaw
     // },
-
-
-
-
-
 
     // async updateEntityById(args){
     //   console.log("updateAppById");
@@ -132,7 +139,7 @@ export function EntitiesModel() {
     //   const apps = await dbRes.map((singleApp) => (toApp(singleApp)));
     //   return apps
     // },
-  }
+  };
 }
 
 export default EntitiesModel;
