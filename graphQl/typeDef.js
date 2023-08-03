@@ -106,8 +106,9 @@ const typeDefs = gql `
     getEveryEntityNameAndId: [String]
     # getAllTags: [String]
     filterTagsBySearchString(queryString: String!): [Entity]
+    filterNamesBySearchString(queryString: String!): [Entity]
     filterEntityByQueryString(queryString: String!): [Entity]
-    customEntitySearch(tags: [String], name: String ): [Entity]
+    customEntitySearch(tags: [String], name: String, type: String, leader: String, teamsResponsible: [String], mainLink: String ): [Entity]
     # getAppsName(ids: [ID!]!): [String]
     # getAppWithFoldersById(id: ID!): App
     # getAppByName(name: String!): App

@@ -40,6 +40,7 @@ export function EntitiesModel() {
           { name: { $regex: queryString } },
           { briefDescription: { $regex: queryString } },
           { mainLink: { $regex: queryString } },
+          { leader: { $regex: queryString } },
           // { type: { $regex: queryString}},
         ],
       });
@@ -62,22 +63,38 @@ export function EntitiesModel() {
       return dbRes;
     },
 
-    async customEntitySearch({ tags, name }) {
+    async filterNamesBySearchString({ queryString }) {
+      console.log("queryString*", queryString);
+      const dbResRaw = await entitiesCollection.find({
+        name : { $regex: queryString },
+      });
+      console.log("dbResRaw:", dbResRaw);
+
+      const dbRes = await dbResRaw.toArray();
+      console.log("dbRes:", dbRes);
+      return dbRes;
+    },
+
+    async customEntitySearch({ tags, name, type, leader, teamsResponsible, mainLink }) {
       console.log("tags, name*", tags, name);
 
       // id
-      const nameQuery = name ? { name }: {}
-      // type
-      // leader
-      // mainLink
+      const nameQuery = name ? { name } : {}
+      const typeQuery = type ? { type } : {}
+      const leaderQuery = leader ? { leader } : {}
+      const mainLinkQuery = mainLink ? { mainLink } : {}  
       // briefDescription
-      // teamsResponsible
+      const teamsResponsibleQuery = teamsResponsible ? { teamsResponsible: { $not: { $nin: teamsResponsible} }} : {}
       const tagsQuery = tags? { "properties.tags": { $not: { $nin: tags} }} : {}
 
       const dbResRaw = await entitiesCollection.find({
         $and: [
           tagsQuery,
           nameQuery,
+          typeQuery,
+          leaderQuery,
+          mainLinkQuery,
+          teamsResponsibleQuery
         ],
       });
       const dbRes = await dbResRaw.toArray();

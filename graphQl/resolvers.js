@@ -10,6 +10,7 @@ export function createResolvers(models) {
       // getAllTags: async(_, args, ctx) => await models.Entities.getAllTags(),
       filterEntityByQueryString: async(_, args, ctx) => await models.Entities.filterEntityByQueryString(args),
       filterTagsBySearchString: async(_, args, ctx) => await models.Entities.filterTagsBySearchString(args),
+      filterNamesBySearchString: async(_, args, ctx) => await models.Entities.filterNamesBySearchString(args),
       customEntitySearch: async(_, args, ctx) => await models.Entities.customEntitySearch(args),
 
       // getAppWithFoldersById: async(_, args, ctx) => await models.Apps.getAppWithFoldersById(args),
