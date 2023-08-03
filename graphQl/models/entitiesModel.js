@@ -64,10 +64,20 @@ export function EntitiesModel() {
 
     async customEntitySearch({ tags, name }) {
       console.log("tags, name*", tags, name);
+
+      // id
+      const nameQuery = name ? { name }: {}
+      // type
+      // leader
+      // mainLink
+      // briefDescription
+      // teamsResponsible
+      const tagsQuery = tags? { "properties.tags": { $not: { $nin: tags} }} : {}
+
       const dbResRaw = await entitiesCollection.find({
         $and: [
-          { "properties.tags": { $not: { $nin: tags } }},
-          { name },
+          tagsQuery,
+          nameQuery,
         ],
       });
       const dbRes = await dbResRaw.toArray();
