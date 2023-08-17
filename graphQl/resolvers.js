@@ -6,6 +6,8 @@ export function createResolvers(models) {
       getEntityById: async(_, args, ctx) => await models.Entities.getEntityById(args),
       getChildrenById: async(_, args, ctx) => await models.Entities.getChildrenById(args),
       getEveryEntityName: async(_, args, ctx) => await models.Entities.getEveryEntityName(),
+      getAllTypes: async(_, args, ctx) => await models.Entities.getAllTypes(),
+      getAllLinks: async(_, args, ctx) => await models.Entities.getAllLinks(),
       getEveryEntityNameAndId: async(_, args, ctx) => await models.Entities.getEveryEntityNameAndId(),
       // getAllTags: async(_, args, ctx) => await models.Entities.getAllTags(),
       filterEntityByQueryString: async(_, args, ctx) => await models.Entities.filterEntityByQueryString(args),

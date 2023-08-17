@@ -103,6 +103,8 @@ const typeDefs = gql `
     getEntityById(id: ID!): Entity
     getChildrenById(ids: [ID]!): [Entity]
     getEveryEntityName: [String]
+    getAllTypes: [String]
+    getAllLinks: [String]
     getEveryEntityNameAndId: [String]
     # getAllTags: [String]
     filterTagsBySearchString(queryString: String!): [Entity]

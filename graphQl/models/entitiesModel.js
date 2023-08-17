@@ -108,6 +108,18 @@ export function EntitiesModel() {
       return dbResRaw;
     },
 
+    async getAllTypes() {
+      const dbResRaw = await entitiesCollection.distinct("type");
+      console.log("dbResRaw:", dbResRaw);
+      return dbResRaw;
+    },
+
+    async getAllLinks() {
+      const dbResRaw = await entitiesCollection.distinct("mainLink");
+      console.log("dbResRaw:", dbResRaw);
+      return dbResRaw;
+    },
+
     // async getAllTags( ){
     //   const dbResRaw = await entitiesCollection.distinct('properties.tags')
     //   console.log("dbResRaw:", dbResRaw);
