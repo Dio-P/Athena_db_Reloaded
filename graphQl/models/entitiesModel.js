@@ -2,6 +2,7 @@ import { entitiesCollection } from "../../index.js";
 // import { ObjectId } from "mongodb";
 import { ObjectID } from "bson";
 import { updateWithFolders } from "../../helpers/updateDbDocsLogic.js";
+import { filterOutNonValues } from "../../helpers/queriesHelper.js";
 const toEntity = (entity) => {
   const { _id, ...entityWithNoId } = entity;
 
@@ -108,6 +109,20 @@ export function EntitiesModel() {
       return dbResRaw;
     },
 
+    async getAll({ofType}) {
+      console.log('inside getAll@', ofType);
+      const pathToType = () => {
+        switch(ofType){
+        case 'tags': return "properties.tags";
+        default: return ofType
+        }
+      } 
+     
+      const dbResRaw = await entitiesCollection.distinct(pathToType());
+      console.log("dbResRaw:", dbResRaw);
+      return filterOutNonValues(dbResRaw);
+    },
+
     async getAllTypes() {
       const dbResRaw = await entitiesCollection.distinct("type");
       console.log("dbResRaw:", dbResRaw);
@@ -123,6 +138,13 @@ export function EntitiesModel() {
     async getAllBriefDescriptions() {
       const dbResRaw = await entitiesCollection.distinct("briefDescription");
       console.log("dbResRaw:", dbResRaw);
+      return dbResRaw;
+    },
+  
+    async getAllLeaders() {
+      const dbResRaw = await entitiesCollection.distinct("leader");
+      console.log("dbResRaw:", dbResRaw);
+    
       return dbResRaw;
     },
 
