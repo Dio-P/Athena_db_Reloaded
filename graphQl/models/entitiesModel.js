@@ -120,6 +120,12 @@ export function EntitiesModel() {
       return dbResRaw;
     },
 
+    async getAllBriefDescriptions() {
+      const dbResRaw = await entitiesCollection.distinct("briefDescription");
+      console.log("dbResRaw:", dbResRaw);
+      return dbResRaw;
+    },
+
     // async getAllTags( ){
     //   const dbResRaw = await entitiesCollection.distinct('properties.tags')
     //   console.log("dbResRaw:", dbResRaw);
