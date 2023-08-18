@@ -52,30 +52,6 @@ export function EntitiesModel() {
       return dbRes;
     },
 
-    async filterTagsBySearchString({ queryString }) {
-      console.log("queryString*", queryString);
-      const dbResRaw = await entitiesCollection.find({
-        "properties.tags": { $regex: queryString },
-      });
-      console.log("dbResRaw:", dbResRaw);
-
-      const dbRes = await dbResRaw.toArray();
-      console.log("dbRes:", dbRes);
-      return dbRes;
-    },
-
-    async filterNamesBySearchString({ queryString }) {
-      console.log("queryString*", queryString);
-      const dbResRaw = await entitiesCollection.find({
-        name : { $regex: queryString },
-      });
-      console.log("dbResRaw:", dbResRaw);
-
-      const dbRes = await dbResRaw.toArray();
-      console.log("dbRes:", dbRes);
-      return dbRes;
-    },
-
     async customEntitySearch({ tags, name, type, leader, teamsResponsible, mainLink }) {
       console.log("tags, name*", tags, name);
 
@@ -103,12 +79,6 @@ export function EntitiesModel() {
       return dbRes;
     },
 
-    async getEveryEntityName() {
-      const dbResRaw = await entitiesCollection.distinct("name");
-      console.log("dbResRaw:", dbResRaw);
-      return dbResRaw;
-    },
-
     async getAll({ofType}) {
       console.log('inside getAll@', ofType);
       const pathToType = () => {
@@ -123,30 +93,60 @@ export function EntitiesModel() {
       return filterOutNonValues(dbResRaw);
     },
 
-    async getAllTypes() {
-      const dbResRaw = await entitiesCollection.distinct("type");
-      console.log("dbResRaw:", dbResRaw);
-      return dbResRaw;
-    },
+        // async filterTagsBySearchString({ queryString }) {
+    //   console.log("queryString*", queryString);
+    //   const dbResRaw = await entitiesCollection.find({
+    //     "properties.tags": { $regex: queryString },
+    //   });
+    //   console.log("dbResRaw:", dbResRaw);
 
-    async getAllLinks() {
-      const dbResRaw = await entitiesCollection.distinct("mainLink");
-      console.log("dbResRaw:", dbResRaw);
-      return dbResRaw;
-    },
+    //   const dbRes = await dbResRaw.toArray();
+    //   console.log("dbRes:", dbRes);
+    //   return dbRes;
+    // },
 
-    async getAllBriefDescriptions() {
-      const dbResRaw = await entitiesCollection.distinct("briefDescription");
-      console.log("dbResRaw:", dbResRaw);
-      return dbResRaw;
-    },
+    // async filterNamesBySearchString({ queryString }) {
+    //   console.log("queryString*", queryString);
+    //   const dbResRaw = await entitiesCollection.find({
+    //     name : { $regex: queryString },
+    //   });
+    //   console.log("dbResRaw:", dbResRaw);
+
+    //   const dbRes = await dbResRaw.toArray();
+    //   console.log("dbRes:", dbRes);
+    //   return dbRes;
+    // },
+
+     // async getEveryEntityName() {
+    //   const dbResRaw = await entitiesCollection.distinct("name");
+    //   console.log("dbResRaw:", dbResRaw);
+    //   return dbResRaw;
+    // },
+
+    // async getAllTypes() {
+    //   const dbResRaw = await entitiesCollection.distinct("type");
+    //   console.log("dbResRaw:", dbResRaw);
+    //   return dbResRaw;
+    // },
+
+    // async getAllLinks() {
+    //   const dbResRaw = await entitiesCollection.distinct("mainLink");
+    //   console.log("dbResRaw:", dbResRaw);
+    //   return dbResRaw;
+    // },
+
+    // async getAllBriefDescriptions() {
+    //   const dbResRaw = await entitiesCollection.distinct("briefDescription");
+    //   console.log("dbResRaw:", dbResRaw);
+    //   return dbResRaw;
+    // },
   
-    async getAllLeaders() {
-      const dbResRaw = await entitiesCollection.distinct("leader");
-      console.log("dbResRaw:", dbResRaw);
+    // async getAllLeaders() {
+    //   const dbResRaw = await entitiesCollection.distinct("leader");
+    //   console.log("dbResRaw:", dbResRaw);
     
-      return dbResRaw;
-    },
+    //   return dbResRaw;
+    // },
 
     // async getAllTags( ){
     //   const dbResRaw = await entitiesCollection.distinct('properties.tags')
@@ -154,13 +154,13 @@ export function EntitiesModel() {
     //   return dbResRaw
     // },
 
-    async getEveryEntityNameAndId() {
-      const dbResRaw = await entitiesCollection.aggregate([
-        { $group: { $name: "$id" } },
-      ]);
-      console.log("dbResRaw:", dbResRaw.toArray());
-      return dbResRaw;
-    },
+    // async getEveryEntityNameAndId() {
+    //   const dbResRaw = await entitiesCollection.aggregate([
+    //     { $group: { $name: "$id" } },
+    //   ]);
+    //   console.log("dbResRaw:", dbResRaw.toArray());
+    //   return dbResRaw;
+    // },
 
     // async filterEntityByQueryString({ queryString }){
     //   const dbResRaw = await entitiesCollection.find( { $text: { $search: queryString } } )
