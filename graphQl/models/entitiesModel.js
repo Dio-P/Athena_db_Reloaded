@@ -12,6 +12,13 @@ const toEntity = (entity) => {
   };
 };
 
+const pathToType = (ofType) => {
+  switch(ofType){
+  case 'tags': return "properties.tags";
+  default: return ofType
+  }
+} 
+
 export function EntitiesModel() {
   return {
     // async addNewEntity({newApp}){
@@ -52,8 +59,20 @@ export function EntitiesModel() {
       return dbRes;
     },
 
-    async customEntitySearch({ tags, name, type, leader, teamsResponsible, mainLink }) {
-      console.log("tags, name*", tags, name);
+    async customEntitySearch(args) {
+      console.log("args*", args);
+      console.log("args*entries", Object.entries(args));
+      console.log("self called funct@@@", (function createQuery() { return Object.entries(args).map((arg) => {
+        console.log('arg@@', arg);
+        return { [pathToType(arg[0])] : { $not: { $nin: arg[1]} }}
+    })})());
+
+      let contructQuery = () => Object.entries(args).map((arg) => {
+        console.log('arg@@', arg);
+        return arg[1].length >0 && { [pathToType(arg[0])] : { $not: { $nin: arg[1]} }}
+      })
+
+      const { tags, name, type, leader, teamsResponsible, mainLink } = args
 
       // id
       const nameQuery = name ? { "name": { $not: { $nin: name} }} : {}
@@ -64,7 +83,7 @@ export function EntitiesModel() {
        const teamsResponsibleQuery = teamsResponsible ? { "teamsResponsible": { $not: { $nin: teamsResponsible} }} : {}
        const tagsQuery = tags? { "properties.tags": { $not: { $nin: tags} }} : {};
 
-       console.log("nameQuery@", JSON.stringify(nameQuery));
+      //  console.log("nameQuery@", JSON.stringify(nameQuery));
      const parameters = { 
       nameQuery: name ? { "name": { $not: { $nin: name} }} : {},
       typeQuery: type ? { "type": { $not: { $nin: type} }} : {},
@@ -75,23 +94,26 @@ export function EntitiesModel() {
     } 
      
     
-      console.log("parameters@", parameters);
+      console.log("contructQuery@", contructQuery());
       const dbResRaw = await entitiesCollection.find({
          // and alternative to this is a serach with or - or I could pass the "or" or "and"
         // the problem with this is that as the code stands or returns everything 
         // because of the empty queries. Could I spred a custom object withing the block to fix that ?
         // I don't know what could be more useful
+
+        // $or: Object.values(parameters) // trying to make this work probably the problem is : { $not: { $nin: mainLink} }
+
+        // $and: Object.values(parameters)
+        $and: contructQuery()
+      
         // $and: [
-        //   {...parameters}
+        //   tagsQuery,
+        //   nameQuery,
+        //   typeQuery,
+        //   leaderQuery,
+        //   mainLinkQuery,
+        //   teamsResponsibleQuery
         // ],
-        $and: [
-          tagsQuery,
-          nameQuery,
-          typeQuery,
-          leaderQuery,
-          mainLinkQuery,
-          teamsResponsibleQuery
-        ],
       });
       const dbRes = await dbResRaw.toArray();
       console.log("dbRes:", dbRes);
@@ -100,14 +122,8 @@ export function EntitiesModel() {
 
     async getAll({ofType}) {
       console.log('inside getAll@', ofType);
-      const pathToType = () => {
-        switch(ofType){
-        case 'tags': return "properties.tags";
-        default: return ofType
-        }
-      } 
      
-      const dbResRaw = await entitiesCollection.distinct(pathToType());
+      const dbResRaw = await entitiesCollection.distinct(pathToType(ofType));
       console.log("dbResRaw:", dbResRaw);
       return filterOutNonValues(dbResRaw);
     },
