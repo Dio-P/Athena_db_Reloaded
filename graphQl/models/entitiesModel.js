@@ -29,6 +29,7 @@ export function EntitiesModel() {
     // },
 
     async getEntityById(args) {
+      console.log('into getEntityById', args);
       const dbRes = await entitiesCollection.findOne({ id: args.id });
       return dbRes;
     },
