@@ -56,15 +56,34 @@ export function EntitiesModel() {
       console.log("tags, name*", tags, name);
 
       // id
-      const nameQuery = name ? { name } : {}
-      const typeQuery = type ? { type } : {}
-      const leaderQuery = leader ? { leader } : {}
-      const mainLinkQuery = mainLink ? { mainLink } : {}  
-      // briefDescription
-      const teamsResponsibleQuery = teamsResponsible ? { teamsResponsible: { $not: { $nin: teamsResponsible} }} : {}
-      const tagsQuery = tags? { "properties.tags": { $not: { $nin: tags} }} : {}
+      const nameQuery = name ? { "name": { $not: { $nin: name} }} : {}
+      const typeQuery = type? { "type": { $not: { $nin: type} }} : {};
+      const leaderQuery = leader? { "leader": { $not: { $nin: leader} }} : {};
+      const mainLinkQuery = mainLink ? { "mainLink": { $not: { $nin: mainLink} }} : {};
+       // briefDescription
+       const teamsResponsibleQuery = teamsResponsible ? { "teamsResponsible": { $not: { $nin: teamsResponsible} }} : {}
+       const tagsQuery = tags? { "properties.tags": { $not: { $nin: tags} }} : {};
 
+       console.log("nameQuery@", JSON.stringify(nameQuery));
+     const parameters = { 
+      nameQuery: name ? { "name": { $not: { $nin: name} }} : {},
+      typeQuery: type ? { "type": { $not: { $nin: type} }} : {},
+      leaderQuery: leader ? { "leader": { $not: { $nin: leader} }} : {},
+      mainLinkQuery: mainLink ? { "mainLink": { $not: { $nin: mainLink} }} : {},
+      teamsResponsibleQuery: teamsResponsible ? { "teamsResponsible": { $not: { $nin: teamsResponsible} }} : {},
+      tagsQuery: tags? { "properties.tags": { $not: { $nin: tags} }} : {},
+    } 
+     
+    
+      console.log("parameters@", parameters);
       const dbResRaw = await entitiesCollection.find({
+         // and alternative to this is a serach with or - or I could pass the "or" or "and"
+        // the problem with this is that as the code stands or returns everything 
+        // because of the empty queries. Could I spred a custom object withing the block to fix that ?
+        // I don't know what could be more useful
+        // $and: [
+        //   {...parameters}
+        // ],
         $and: [
           tagsQuery,
           nameQuery,
