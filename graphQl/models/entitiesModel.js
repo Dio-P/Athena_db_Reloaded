@@ -67,9 +67,14 @@ export function EntitiesModel() {
         return { [pathToType(arg[0])] : { $not: { $nin: arg[1]} }}
     })})());
 
-      let contructQuery = () => Object.entries(args).map((arg) => {
+      let contructQuery = () => Object.entries(args)
+      .filter((arg) => (
+        arg[1].length >0
+      ))
+      .map((arg) => {
         console.log('arg@@', arg);
-        return arg[1].length >0 && { [pathToType(arg[0])] : { $not: { $nin: arg[1]} }}
+        console.log('arg[1]', arg[1]);
+        return { [pathToType(arg[0])] : { $not: { $nin: arg[1]} }}
       })
 
       const { tags, name, type, leader, teamsResponsible, mainLink } = args
