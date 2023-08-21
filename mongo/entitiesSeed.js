@@ -20,7 +20,7 @@ db.entities.insertMany(
       name: "optimo",
       type: "app", //team //department //part //service //technology //product //doc
       leader: "Matt",
-      mainLink: "someLink.github.com", //gitHub, //source if doc //could this also be slack chanel?
+      mainLink: "someLink.github.com", //gitHub, api, site//source if doc //could this also be slack chanel? should this be an array ?
       // otherLinks: [], //do we need that or is it gonna confuse things?
       briefDescription: "this is the optimo app, the best app in the world",
       teamsResponsible: ["DPub"], //automatically add the team of the parent.
