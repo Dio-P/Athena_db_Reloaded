@@ -3,14 +3,14 @@ import { entitiesCollection } from "../../index.js";
 import { ObjectID } from "bson";
 import { updateWithFolders } from "../../helpers/updateDbDocsLogic.js";
 import { filterOutNonValues } from "../../helpers/queriesHelper.js";
-const toEntity = (entity) => {
-  const { _id, ...entityWithNoId } = entity;
+// const toEntity = (entity) => {
+//   const { _id, ...entityWithNoId } = entity;
 
-  return {
-    id: _id,
-    ...entityWithNoId,
-  };
-};
+//   return {
+//     id: _id,
+//     ...entityWithNoId,
+//   };
+// };
 
 const pathToType = (ofType) => {
   switch(ofType){
@@ -68,10 +68,10 @@ export function EntitiesModel() {
         return { [pathToType(arg[0])] : { $not: { $nin: arg[1]} }}
     })})());
 
-      let contructQuery = () => Object.entries(args)
-      .filter((arg) => (
-        arg[1].length >0
-      ))
+      let constructQuery = () => Object.entries(args)
+      // .filter((arg) => (
+      //   arg[1].length >0
+      // ))
       .map((arg) => {
         console.log('arg@@', arg);
         console.log('arg[1]', arg[1]);
@@ -81,26 +81,26 @@ export function EntitiesModel() {
       const { tags, name, type, leader, teamsResponsible, mainLink } = args
 
       // id
-      const nameQuery = name ? { "name": { $not: { $nin: name} }} : {}
-      const typeQuery = type? { "type": { $not: { $nin: type} }} : {};
-      const leaderQuery = leader? { "leader": { $not: { $nin: leader} }} : {};
-      const mainLinkQuery = mainLink ? { "mainLink": { $not: { $nin: mainLink} }} : {};
-       // briefDescription
-       const teamsResponsibleQuery = teamsResponsible ? { "teamsResponsible": { $not: { $nin: teamsResponsible} }} : {}
-       const tagsQuery = tags? { "properties.tags": { $not: { $nin: tags} }} : {};
+      // const nameQuery = name ? { "name": { $not: { $nin: name} }} : {}
+      // const typeQuery = type? { "type": { $not: { $nin: type} }} : {};
+      // const leaderQuery = leader? { "leader": { $not: { $nin: leader} }} : {};
+      // const mainLinkQuery = mainLink ? { "mainLink": { $not: { $nin: mainLink} }} : {};
+      //  // briefDescription
+      //  const teamsResponsibleQuery = teamsResponsible ? { "teamsResponsible": { $not: { $nin: teamsResponsible} }} : {}
+      //  const tagsQuery = tags? { "properties.tags": { $not: { $nin: tags} }} : {};
 
       //  console.log("nameQuery@", JSON.stringify(nameQuery));
-     const parameters = { 
-      nameQuery: name ? { "name": { $not: { $nin: name} }} : {},
-      typeQuery: type ? { "type": { $not: { $nin: type} }} : {},
-      leaderQuery: leader ? { "leader": { $not: { $nin: leader} }} : {},
-      mainLinkQuery: mainLink ? { "mainLink": { $not: { $nin: mainLink} }} : {},
-      teamsResponsibleQuery: teamsResponsible ? { "teamsResponsible": { $not: { $nin: teamsResponsible} }} : {},
-      tagsQuery: tags? { "properties.tags": { $not: { $nin: tags} }} : {},
-    } 
+    //  const parameters = { 
+    //   nameQuery: name ? { "name": { $not: { $nin: name} }} : {},
+    //   typeQuery: type ? { "type": { $not: { $nin: type} }} : {},
+    //   leaderQuery: leader ? { "leader": { $not: { $nin: leader} }} : {},
+    //   mainLinkQuery: mainLink ? { "mainLink": { $not: { $nin: mainLink} }} : {},
+    //   teamsResponsibleQuery: teamsResponsible ? { "teamsResponsible": { $not: { $nin: teamsResponsible} }} : {},
+    //   tagsQuery: tags? { "properties.tags": { $not: { $nin: tags} }} : {},
+    // } 
      
     
-      console.log("contructQuery@", contructQuery());
+      // console.log("constructQuery@", constructQuery());
       const dbResRaw = await entitiesCollection.find({
          // and alternative to this is a serach with or - or I could pass the "or" or "and"
         // the problem with this is that as the code stands or returns everything 
@@ -110,7 +110,7 @@ export function EntitiesModel() {
         // $or: Object.values(parameters) // trying to make this work probably the problem is : { $not: { $nin: mainLink} }
 
         // $and: Object.values(parameters)
-        $and: contructQuery()
+        $and: constructQuery()
       
         // $and: [
         //   tagsQuery,
