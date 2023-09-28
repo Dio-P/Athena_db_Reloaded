@@ -48,7 +48,7 @@ export function EntitiesModel() {
         $or: [
           { name: { $regex: queryString } },
           { briefDescription: { $regex: queryString } },
-          { mainLink: { $regex: queryString } },
+          { mainLinks: { $regex: queryString } },
           { leader: { $regex: queryString } },
           // { type: { $regex: queryString}},
         ],
@@ -78,13 +78,13 @@ export function EntitiesModel() {
         return { [pathToType(arg[0])] : { $not: { $nin: arg[1]} }}
       })
 
-      const { tags, name, type, leader, teamsResponsible, mainLink } = args
+      const { tags, name, type, leader, teamsResponsible, mainLinks } = args
 
       // id
       // const nameQuery = name ? { "name": { $not: { $nin: name} }} : {}
       // const typeQuery = type? { "type": { $not: { $nin: type} }} : {};
       // const leaderQuery = leader? { "leader": { $not: { $nin: leader} }} : {};
-      // const mainLinkQuery = mainLink ? { "mainLink": { $not: { $nin: mainLink} }} : {};
+      // const mainLinksQuery = mainLinks ? { "mainLinks": { $not: { $nin: mainLinks} }} : {};
       //  // briefDescription
       //  const teamsResponsibleQuery = teamsResponsible ? { "teamsResponsible": { $not: { $nin: teamsResponsible} }} : {}
       //  const tagsQuery = tags? { "properties.tags": { $not: { $nin: tags} }} : {};
@@ -94,7 +94,7 @@ export function EntitiesModel() {
     //   nameQuery: name ? { "name": { $not: { $nin: name} }} : {},
     //   typeQuery: type ? { "type": { $not: { $nin: type} }} : {},
     //   leaderQuery: leader ? { "leader": { $not: { $nin: leader} }} : {},
-    //   mainLinkQuery: mainLink ? { "mainLink": { $not: { $nin: mainLink} }} : {},
+    //   mainLinksQuery: mainLinks ? { "mainLinks": { $not: { $nin: mainLinks} }} : {},
     //   teamsResponsibleQuery: teamsResponsible ? { "teamsResponsible": { $not: { $nin: teamsResponsible} }} : {},
     //   tagsQuery: tags? { "properties.tags": { $not: { $nin: tags} }} : {},
     // } 
@@ -107,7 +107,7 @@ export function EntitiesModel() {
         // because of the empty queries. Could I spred a custom object withing the block to fix that ?
         // I don't know what could be more useful
 
-        // $or: Object.values(parameters) // trying to make this work probably the problem is : { $not: { $nin: mainLink} }
+        // $or: Object.values(parameters) // trying to make this work probably the problem is : { $not: { $nin: mainLinks} }
 
         // $and: Object.values(parameters)
         $and: constructQuery()
@@ -117,7 +117,7 @@ export function EntitiesModel() {
         //   nameQuery,
         //   typeQuery,
         //   leaderQuery,
-        //   mainLinkQuery,
+        //   mainLinksQuery,
         //   teamsResponsibleQuery
         // ],
       });
@@ -171,7 +171,7 @@ export function EntitiesModel() {
     // },
 
     // async getAllLinks() {
-    //   const dbResRaw = await entitiesCollection.distinct("mainLink");
+    //   const dbResRaw = await entitiesCollection.distinct("mainLinks");
     //   console.log("dbResRaw:", dbResRaw);
     //   return dbResRaw;
     // },

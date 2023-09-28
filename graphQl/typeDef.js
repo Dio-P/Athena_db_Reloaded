@@ -9,7 +9,7 @@ const typeDefs = gql `
     id: ID!
     name: String
     type: String
-    mainLink: String
+    mainLinks: String
     briefDescription: String
     teamsResponsible: [String]
     properties: Properties
@@ -23,7 +23,7 @@ const typeDefs = gql `
     id: ID!
     name: String
     type: String
-    mainLink: String
+    mainLinks: String
     briefDescription: String
     teamsResponsible: [String]
     properties: PropertiesInput
@@ -113,7 +113,7 @@ const typeDefs = gql `
     # filterTagsBySearchString(queryString: String!): [Entity]
     # filterNamesBySearchString(queryString: String!): [Entity]
     filterEntityByQueryString(queryString: String!): [Entity]
-    customEntitySearch(tags: [String], name: [String], type: [String], leader: [String], teamsResponsible: [String], mainLink: [String] ): [Entity]
+    customEntitySearch(tags: [String], name: [String], type: [String], leader: [String], teamsResponsible: [String], mainLinks: [String] ): [Entity]
     # getAppsName(ids: [ID!]!): [String]
     # getAppWithFoldersById(id: ID!): App
     # getAppByName(name: String!): App

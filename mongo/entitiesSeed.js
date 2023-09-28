@@ -5,7 +5,7 @@ db.entities.createIndex(
     name: "text",
     type: "text",
     leader: "text",
-    mainLink: "text",
+    mainLinks: ["text"],
     briefDescription: "text",
     teamsResponsible: "text",
   }
@@ -20,7 +20,7 @@ db.entities.insertMany(
       name: "optimo",
       type: "app", //team //department //part //service //technology //product //doc
       leader: "Matt",
-      mainLink: "someLink.github.com", //gitHub, api, site//source if doc //could this also be slack chanel? should this be an array ?
+      mainLinks: ["someLink.github.com"], //gitHub, api, site//source if doc //could this also be slack chanel? should this be an array ?
       // otherLinks: [], //do we need that or is it gonna confuse things?
       briefDescription: "this is the optimo app, the best app in the world",
       teamsResponsible: ["DPub"], //automatically add the team of the parent.
@@ -75,7 +75,7 @@ db.entities.insertMany(
       name: "IGM",
       type: "app",
       leader: "A team",
-      mainLink: "someLink.github.com",
+      mainLinks: ["someLink.github.com"],
       briefDescription: "this is the optimo app, the best app in the world",
       teamsResponsible: ["DPub"],
       properties: {
@@ -115,7 +115,7 @@ db.entities.insertMany(
       name: "bbc",
       type: "company",
       leader: "Tim Davie", 
-      mainLink: "www.bbc.co.uk",
+      mainLinks: ["www.bbc.co.uk"],
       briefDescription: "British Broadcast Corporation",
       teamsResponsible: null,
       properties: {
@@ -155,7 +155,7 @@ db.entities.insertMany(
       name: "bbc",
       type: "doc",
       leader: undefined, 
-      mainLink: "www.somebbcDoc.co.uk",
+      mainLinks: ["www.somebbcDoc.co.uk"],
       briefDescription: "Main goals or some other goal",
       teamsResponsible: undefined,
       properties: {
@@ -195,7 +195,7 @@ db.entities.insertMany(
       name: "Product Group",
       type: "department", //or group
       leader: "David Andrade", 
-      mainLink: "www.somebbcDoc.co.uk",
+      mainLinks: ["www.somebbcDoc.co.uk"],
       briefDescription: "Product Engineering group",
       teamsResponsible: ["someEntityIdResponsibleForTheDoc"],
       properties: {
@@ -235,7 +235,7 @@ db.entities.insertMany(
       name: "CPub",
       type: "team", //or group
       leader: "Danny Morgan", 
-      mainLink: "www.somebbcDoc.co.uk",
+      mainLinks: ["www.somebbcDoc.co.uk"],
       briefDescription: "Content Publishing",
       teamsResponsible: undefined,
       properties: {
@@ -275,7 +275,7 @@ db.entities.insertMany(
       name: "Authoring",
       type: "subTeam", //or group
       leader: "Matt Greenham", 
-      mainLink: "www.authoringSlack.Chanel.co.uk",
+      mainLinks: ["www.authoringSlack.Chanel.co.uk"],
       briefDescription: "Content Publishing",
       teamsResponsible: undefined,
       properties: {
