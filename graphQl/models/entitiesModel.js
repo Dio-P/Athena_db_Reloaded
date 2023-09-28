@@ -48,7 +48,7 @@ export function EntitiesModel() {
         $or: [
           { name: { $regex: queryString } },
           { briefDescription: { $regex: queryString } },
-          { mainLinks: { $regex: queryString } },
+          { mainLinks: { $regex: queryString } }, //this was changed to array from string will this work ?
           { leader: { $regex: queryString } },
           // { type: { $regex: queryString}},
         ],
@@ -78,7 +78,7 @@ export function EntitiesModel() {
         return { [pathToType(arg[0])] : { $not: { $nin: arg[1]} }}
       })
 
-      const { tags, name, type, leader, teamsResponsible, mainLinks } = args
+      // const { tags, name, type, leader, teamsResponsible, mainLinks } = args
 
       // id
       // const nameQuery = name ? { "name": { $not: { $nin: name} }} : {}

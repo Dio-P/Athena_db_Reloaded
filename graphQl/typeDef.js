@@ -9,7 +9,7 @@ const typeDefs = gql `
     id: ID!
     name: String
     type: String
-    mainLinks: String
+    mainLinks: [String]
     briefDescription: String
     teamsResponsible: [String]
     properties: Properties
@@ -23,7 +23,7 @@ const typeDefs = gql `
     id: ID!
     name: String
     type: String
-    mainLinks: String
+    mainLinks: [String]
     briefDescription: String
     teamsResponsible: [String]
     properties: PropertiesInput
