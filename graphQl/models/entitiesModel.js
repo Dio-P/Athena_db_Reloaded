@@ -31,6 +31,7 @@ export function EntitiesModel() {
     async getEntityById(args) {
       console.log('into getEntityById', args);
       const dbRes = await entitiesCollection.findOne({ id: args.id });
+      console.log('dbRes', dbRes);
       return dbRes;
     },
 
@@ -56,7 +57,7 @@ export function EntitiesModel() {
       // const dbResRaw = await entitiesCollection.find( { $text: { $search: `${queryString}` } } )
       // console.log("dbResRaw:", dbResRaw);{$regex : "son"}
       const dbRes = await dbResRaw.toArray();
-      console.log("dbRes:", dbRes);
+      console.log("filterEntityByQueryStringdbRes@@:", dbRes);
       return dbRes;
     },
 
@@ -209,17 +210,17 @@ export function EntitiesModel() {
     //   return dbResRaw
     // },
 
-    // async updateEntityById(args){
-    //   console.log("updateAppById");
-    //   console.log("args.id", args.id);
-    //   // console.log("args.app", args.app);
-    //   await entitiesCollection.updateOne({ _id: ObjectID(args.id) }, {$set:args.app});
-    //   // const app = toApp(dbRes);
-    //   // // console.log("app", app);
-    //   const appToBeReplaced = await entitiesCollection.findOne({ _id: ObjectID(args.id) });;
-    //   console.log("appToBeReplaced", appToBeReplaced);
-    //   return appToBeReplaced
-    // },
+    async updateEntityById(args){
+      console.log("updateAppById");use
+      console.log("args.id", args.id);
+      // console.log("args.app", args.app);
+      await entitiesCollection.updateOne({ _id: ObjectID(args.id) }, {$set:args.app});
+      // const app = toApp(dbRes);
+      // // console.log("app", app);
+      const appToBeReplaced = await entitiesCollection.findOne({ _id: ObjectID(args.id) });;
+      console.log("appToBeReplaced", appToBeReplaced);
+      return appToBeReplaced
+    },
 
     // async getAppWithFoldersById(args){
     //   // console.log("args.id", args.id);
