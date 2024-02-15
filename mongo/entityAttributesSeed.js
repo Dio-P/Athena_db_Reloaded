@@ -1,7 +1,7 @@
-use types_db
-use tags_db
-use technologies_db
-db.dropDatabase();
+// use types_db
+// use tags_db
+// use technologies_db
+// db.dropDatabase();
 
 // db.entityAttributes.createIndex(
 //   {

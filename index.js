@@ -29,6 +29,9 @@ MongoClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true })
 .then(client => {
   db = client.db('entities_db');
   entitiesCollection = db.collection('entities');
+  typesCollection = db.collection('types');
+  tagsCollection = db.collection('tags');
+  technologiesCollection = db.collection('technologies');
 })
 
 await new Promise((resolve) => httpServer.listen({ port: 5051 }, resolve));
