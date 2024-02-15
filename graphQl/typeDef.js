@@ -144,6 +144,7 @@ const typeDefs = gql `
     getChildrenById(ids: [ID]!): [Entity]
     getEveryEntityName: [String]
     getAll(ofType: String!): [String]
+    getAllTypes: [Type]
     # getAllTypes: [String]
     # getAllLinks: [String]
     # getAllBriefDescriptions: [String]

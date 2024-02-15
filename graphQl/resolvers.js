@@ -10,6 +10,7 @@ export function createResolvers(models) {
       getChildrenById: async(_, args, ctx) => await models.Entities.getChildrenById(args),
       getEveryEntityName: async(_, args, ctx) => await models.Entities.getEveryEntityName(),
       getAll: async(_, args, ctx) => await models.Entities.getAll(args),
+      getAllTypes: async(_, args, ctx) => await models.Types.getAllTypes(),
       // getAllTypes: async(_, args, ctx) => await models.Entities.getAllTypes(),
       // getAllLinks: async(_, args, ctx) => await models.Entities.getAllLinks(),
       // getAllBriefDescriptions: async(_, args, ctx) => await models.Entities.getAllBriefDescriptions(),
@@ -30,7 +31,10 @@ export function createResolvers(models) {
       // getPartById: async(_, args, ctx) => await models.Parts.getPartById(args)
     },
     Mutation: {
-      addNewEntity: async(_, args, ctx) => await models.Entities.addNewEntity(args), 
+      addNewEntity: async(_, args, ctx) => await models.Entities.addNewEntity(args),
+      addNewType: async(_, args, ctx) => await models.Types.addNewType(args),
+      addNewTag: async(_, args, ctx) => await models.Tags.addNewTag(args),
+      addNewTechnology: async(_, args, ctx) => await models.Technologies.addNewTechnology(args),
       updateEntityById: async(_, args, ctx) => await models.Entities.updateEntityById(args),
       // addNewPart: async(_, args, ctx) => await models.Parts.addNewPart(args), 
       // updatePartById: async(_, args, ctx) => await models.Parts.updatePartById(args), 

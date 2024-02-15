@@ -14,12 +14,10 @@ function TypesModel() {
       const dbRes = await typesCollection.findOne({ name: type.title });
       return dbRes
     },
-    async getAllTypes({ofType}) {
-      console.log('inside getAll@', ofType);
-     
-      const dbResRaw = await typesCollection.find();
-      console.log("dbResRaw:", dbResRaw);
-      return dbResRaw;
+    async getAllTypes() {     
+      const allTypes = await typesCollection.find().toArray();
+      console.log('allTypes ==>', allTypes);
+      return allTypes;
     },
   }
 }
