@@ -4,6 +4,9 @@ export function createResolvers(models) {
     Query: {
       // getAppsName: (_, args, ctx) => ctx.models.Apps.getNamesById(args),
       getEntityById: async(_, args, ctx) => await models.Entities.getEntityById(args),
+      getTypeById: async(_, args, ctx) => await models.Types.getTypeById(args),
+      getTagById: async(_, args, ctx) => await models.Tags.getTagById(args),
+      getTechnologyById: async(_, args, ctx) => await models.Technologies.getTechnologyById(args),
       getChildrenById: async(_, args, ctx) => await models.Entities.getChildrenById(args),
       getEveryEntityName: async(_, args, ctx) => await models.Entities.getEveryEntityName(),
       getAll: async(_, args, ctx) => await models.Entities.getAll(args),

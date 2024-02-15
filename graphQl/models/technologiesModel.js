@@ -1,6 +1,8 @@
+import { technologiesCollection } from "../../index.js";
+
 export function TechnologiesModel() {
   return {
-    async getTechnologiesById(args) {
+    async getTechnologyById(args) {
       console.log('into getTechnologiesById', args);
       const dbRes = await technologiesCollection.findOne({ id: args.id });
       console.log('dbRes', dbRes);
@@ -14,3 +16,5 @@ export function TechnologiesModel() {
     },
   }
 }
+
+export default TechnologiesModel;

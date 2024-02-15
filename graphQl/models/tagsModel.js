@@ -1,6 +1,8 @@
+import { tagsCollection } from "../../index.js";
+
 export function TagsModel() {
   return {
-    async getTagsById(args) {
+    async getTagById(args) {
       console.log('into getTagsById', args);
       const dbRes = await tagsCollection.findOne({ id: args.id });
       console.log('dbRes', dbRes);
@@ -14,3 +16,5 @@ export function TagsModel() {
     },
   }
 }
+
+export default TagsModel;

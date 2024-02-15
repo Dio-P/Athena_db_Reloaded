@@ -4,6 +4,9 @@ import typeDefs from './typeDef.js';
 import { createResolvers } from './resolvers.js';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 import AppsModel, { EntitiesModel } from './models/entitiesModel.js';
+import TypesModel from './models/typesModel.js';
+import TagsModel from './models/tagsModel.js';
+import TechnologiesModel from './models/technologiesModel.js';
 import PartsModel from './models/partsModel.js';
 
 
@@ -13,9 +16,9 @@ import PartsModel from './models/partsModel.js';
 export const createApolloServer = (httpServer) => {
   const models = {
     Entities: EntitiesModel(),
-    Types:
-    Tags: ,
-    Technologies: 
+    Types: TypesModel(),
+    Tags: TagsModel(),
+    Technologies: TechnologiesModel(),
     // Parts: PartsModel(),
   };
 

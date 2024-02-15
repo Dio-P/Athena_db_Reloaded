@@ -9,6 +9,9 @@ import bodyParser from 'body-parser';
 const graphqlUrl = '/graphql';
 export let db;
 export let entitiesCollection;
+export let typesCollection;
+export let tagsCollection;
+export let technologiesCollection;
 
 const app = express();
 const httpServer = http.createServer(app);
