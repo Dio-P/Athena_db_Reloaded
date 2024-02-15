@@ -111,7 +111,7 @@ db.entities.insertMany(
       teamsResponsible: ["5"],
       properties: {
         docs: [],
-        tags: ["third"],
+        tags: ["3"],
         technologies: [],
       },
       children: [],
@@ -191,7 +191,7 @@ db.entities.insertMany(
       teamsResponsible: undefined,
       properties: {
         docs: [],
-        tags: ["first"],
+        tags: ["1", "2"],
         technologies: [],
       },
       children: [],
@@ -225,7 +225,7 @@ db.entities.insertMany(
       id: "3",
       name: "product Group",
       type: "4", //or group
-      leader: "David Andrade", 
+      leader: "Jack White", 
       mainLinks: ["www.somebbcDoc.co.uk"],
       briefDescription: "Product Engineering group",
       teamsResponsible: ["someEntityIdResponsibleForTheDoc"],

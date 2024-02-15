@@ -8,7 +8,7 @@ const typeDefs = gql `
   type Entity {
     id: ID!
     name: String
-    type: String
+    type: Type
     mainLinks: [String]
     briefDescription: String
     teamsResponsible: [String]
@@ -22,7 +22,7 @@ const typeDefs = gql `
   input EntityInput {
     id: ID!
     name: String
-    type: String
+    type: TypeInput
     mainLinks: [String]
     briefDescription: String
     teamsResponsible: [String]

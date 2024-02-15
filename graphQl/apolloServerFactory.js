@@ -13,6 +13,9 @@ import PartsModel from './models/partsModel.js';
 export const createApolloServer = (httpServer) => {
   const models = {
     Entities: EntitiesModel(),
+    Types:
+    Tags: ,
+    Technologies: 
     // Parts: PartsModel(),
   };
 
