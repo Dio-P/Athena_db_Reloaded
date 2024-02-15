@@ -10,6 +10,36 @@ db.entities.createIndex(
     teamsResponsible: "text",
   }
 )
+// db.types.createIndex(
+//   {
+//     name: "text",
+//     type: "text",
+//     leader: "text",
+//     mainLinks: ["text"],
+//     briefDescription: "text",
+//     teamsResponsible: "text",
+//   }
+// )
+// db.tags.createIndex(
+//   {
+//     name: "text",
+//     type: "text",
+//     leader: "text",
+//     mainLinks: ["text"],
+//     briefDescription: "text",
+//     teamsResponsible: "text",
+//   }
+// )
+// db.technologies.createIndex(
+//   {
+//     name: "text",
+//     type: "text",
+//     leader: "text",
+//     mainLinks: ["text"],
+//     briefDescription: "text",
+//     teamsResponsible: "text",
+//   }
+// )
 
 // change apps to include also terms and technologies
 db.entities.insertMany(
@@ -329,3 +359,29 @@ db.entities.insertMany(
 //     },
 //   ]
 // }
+
+db.types.insertMany(
+  [
+    {
+      id: '1',
+      title: 'service',
+      description: 'services are things like lambdas and '
+
+    }
+  ]
+)
+
+db.tags.insertMany(
+  [
+    {
+
+    }
+  ]
+)
+db.technologies.insertMany(
+  [
+    {
+
+    }
+  ]
+)
