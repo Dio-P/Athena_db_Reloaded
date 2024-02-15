@@ -1,4 +1,4 @@
-import { entitiesCollection } from "../../index.js";
+import { entitiesCollection, typesCollection, tagsCollection, technologiesCollection } from "../../index.js";
 // import { ObjectId } from "mongodb";
 import { ObjectID } from "bson";
 import { updateWithFolders } from "../../helpers/updateDbDocsLogic.js";
@@ -19,6 +19,49 @@ const pathToType = (ofType) => {
   }
 } 
 
+const enhanceEntity = async (dbRes) => {
+  const {
+    id,
+    name,
+    type,
+    mainLinks,
+    briefDescription,
+    teamsResponsible,
+    properties: {
+      docs,
+      tags,
+      technologies,
+    },
+    children,
+    connections,
+    interactions,
+  } = dbRes
+
+  const typeObject = await typesCollection.findOne({ id: type });
+  const tagsObject = await tagsCollection.findOne({ id: tags });
+  const technologiesObject = await technologiesCollection.findOne({ id: technologies });
+  console.log('typeObject', typeObject);
+
+  const enhancedEntity = {
+    id,
+    name,
+    type: typeObject,
+    mainLinks,
+    briefDescription,
+    teamsResponsible,
+    properties: {
+      docs,
+      tags: tagsObject,
+      technologies: technologiesObject,
+    },
+    children,
+    connections,
+    interactions,
+  }
+
+  return enhancedEntity;
+}
+
 export function EntitiesModel() {
   return {
     // async addNewEntity({newApp}){
@@ -32,6 +75,7 @@ export function EntitiesModel() {
       console.log('into getEntityById', args);
       const dbRes = await entitiesCollection.findOne({ id: args.id });
       console.log('dbRes', dbRes);
+      const entity = enhanceEntity(dbRes)
       return dbRes;
     },
 

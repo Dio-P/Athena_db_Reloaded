@@ -16,7 +16,6 @@ const typeDefs = gql `
     children: [String]
     connections: Connections
     interactions: Interactions
-
   }
 
   input EntityInput {
@@ -33,37 +32,37 @@ const typeDefs = gql `
   }
 
   type Type {
-    id: ID!
+    id: String
     title: String
     description: String
   }
   
   input TypeInput {
-    id: ID!
+    id: String
     title: String
     description: String
   }
 
   type Tag {
-    id: ID!
+    id: String
     title: String
     description: String
   }
   
   input TagInput {
-    id: ID!
+    id: String
     title: String
     description: String
   }
 
   type Technology {
-    id: ID!
+    id: String
     title: String
     description: String
   }
   
   input TechnologyInput {
-    id: ID!
+    id: String
     title: String
     description: String
   }
@@ -71,14 +70,14 @@ const typeDefs = gql `
 
   type Properties {
     docs: [String]
-    tags: [String]
-    technologies: [String]
+    tags: [Tag]
+    technologies: [Technology]
   }
 
   input PropertiesInput {
     docs: [String]
-    tags: [String]
-    technologies: [String]
+    tags: [TagInput]
+    technologies: [TechnologyInput]
   }
 
   type Connections {
