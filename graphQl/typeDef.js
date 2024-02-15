@@ -32,6 +32,43 @@ const typeDefs = gql `
     interactions: InteractionsInput
   }
 
+  type Type {
+    id: ID!
+    title: String
+    description: String
+  }
+  
+  input TypeInput {
+    id: ID!
+    title: String
+    description: String
+  }
+
+  type Tag {
+    id: ID!
+    title: String
+    description: String
+  }
+  
+  input TagInput {
+    id: ID!
+    title: String
+    description: String
+  }
+
+  type Technology {
+    id: ID!
+    title: String
+    description: String
+  }
+  
+  input TechnologyInput {
+    id: ID!
+    title: String
+    description: String
+  }
+
+
   type Properties {
     docs: [String]
     tags: [String]
@@ -101,6 +138,9 @@ const typeDefs = gql `
 
   type Query {
     getEntityById(id: ID!): Entity
+    getTypeById(id: ID!): Type
+    getTagById(id: ID!): Tag
+    getTechnologyById(id: ID!): Technology
     getChildrenById(ids: [ID]!): [Entity]
     getEveryEntityName: [String]
     getAll(ofType: String!): [String]
@@ -123,6 +163,9 @@ const typeDefs = gql `
 
   type Mutation {
     addNewEntity(newEntity: EntityInput!): Entity
+    addNewType(newType: TypeInput!): Type
+    addNewTag(newTag: TagInput!): Tag
+    addNewTechnology(newTechnology: TechnologyInput!): Technology
     updateEntityById(id: ID!, entity: EntityInput!): Entity
     # deleteAppById(id: ID!): ID 
     # addNewPart(appID: ID!, newPart: PartInput!, additionalFolders: [FolderInput]): Part
