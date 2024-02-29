@@ -14,6 +14,12 @@ export function TagsModel() {
       const dbRes = await tagsCollection.findOne({ name: tag.title });
       return dbRes
     },
+    async getAllTags() { 
+      console.log('inside get all tags ****************');    
+      const allTags = await tagsCollection.find().toArray();
+      console.log('allTags ==>', allTags);
+      return allTags;
+    },
   }
 }
 

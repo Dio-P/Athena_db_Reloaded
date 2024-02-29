@@ -19,7 +19,6 @@ export const createApolloServer = (httpServer) => {
     Types: TypesModel(),
     Tags: TagsModel(),
     Technologies: TechnologiesModel(),
-    // Parts: PartsModel(),
   };
 
   return new ApolloServer({

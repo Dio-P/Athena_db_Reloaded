@@ -40,7 +40,6 @@ const enhanceEntity = async (dbRes) => {
   const typeObject = await typesCollection.findOne({ id: type });
   const tagsObject = await tagsCollection.findOne({ id: tags });
   const technologiesObject = await technologiesCollection.findOne({ id: technologies });
-  console.log('typeObject', typeObject);
 
   const enhancedEntity = {
     id,

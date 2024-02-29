@@ -14,7 +14,8 @@ function TypesModel() {
       const dbRes = await typesCollection.findOne({ name: type.title });
       return dbRes
     },
-    async getAllTypes() {     
+    async getAllTypes() { 
+      console.log('inside get all types ****************');    
       const allTypes = await typesCollection.find().toArray();
       console.log('allTypes ==>', allTypes);
       return allTypes;

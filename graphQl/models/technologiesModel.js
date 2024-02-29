@@ -14,6 +14,12 @@ export function TechnologiesModel() {
       const dbRes = await technologiesCollection.findOne({ name: technology.title });
       return dbRes
     },
+    async getAllTechnologies() { 
+      console.log('inside get all Technologies ****************');    
+      const allTechnologies = await tagsCollection.find().toArray();
+      console.log('allTechnologies ==>', allTechnologies);
+      return allTechnologies;
+    },
   }
 }
 
