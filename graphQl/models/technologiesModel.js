@@ -16,7 +16,7 @@ export function TechnologiesModel() {
     },
     async getAllTechnologies() { 
       console.log('inside get all Technologies ****************');    
-      const allTechnologies = await tagsCollection.find().toArray();
+      const allTechnologies = await technologiesCollection.find().toArray();
       console.log('allTechnologies ==>', allTechnologies);
       return allTechnologies;
     },
