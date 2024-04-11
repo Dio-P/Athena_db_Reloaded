@@ -178,6 +178,16 @@ export function EntitiesModel() {
       return filterOutNonValues(dbResRaw);
     },
 
+    async getAllTeams(){
+      const typeTeamId = await typesCollection.findOne({ title: "team" }).id;
+      console.log("typeTeamId", typeTeamId);
+      const allTeamsRaw = await entitiesCollection.find({ type: typeTeamId });
+      const allTeamsUnEnhanced = await allTeamsRaw.toArray();
+      // console.log("allTeamsUnEnhanced Teams", allTeamsUnEnhanced);
+      const allTeams = await allTeamsUnEnhanced.map((noPopulatedFieldsEntity) => (enhanceEntity(noPopulatedFieldsEntity)));
+      return allTeams
+    },
+
         // async filterTagsBySearchString({ queryString }) {
     //   console.log("queryString*", queryString);
     //   const dbResRaw = await entitiesCollection.find({

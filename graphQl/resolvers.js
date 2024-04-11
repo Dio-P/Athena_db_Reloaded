@@ -13,6 +13,7 @@ export function createResolvers(models) {
       getAllTypes: async(_, args, ctx) => await models.Types.getAllTypes(),
       getAllTechnologies: async(_, args, ctx) => await models.Technologies.getAllTechnologies(),
       getAllTags: async(_, args, ctx) => await models.Tags.getAllTags(),
+      getAllTeams: async(_, args, ctx) => await models.Entities.getAllTeams(),
       // getAllTypes: async(_, args, ctx) => await models.Entities.getAllTypes(),
       // getAllLinks: async(_, args, ctx) => await models.Entities.getAllLinks(),
       // getAllBriefDescriptions: async(_, args, ctx) => await models.Entities.getAllBriefDescriptions(),
