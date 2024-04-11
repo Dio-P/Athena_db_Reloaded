@@ -179,9 +179,8 @@ export function EntitiesModel() {
     },
 
     async getAllTeams(){
-      const typeTeamId = await typesCollection.findOne({ title: "team" }).id;
-      console.log("typeTeamId", typeTeamId);
-      const allTeamsRaw = await entitiesCollection.find({ type: typeTeamId });
+      const typeTeam = await typesCollection.findOne({ title: "team" });
+      const allTeamsRaw = await entitiesCollection.find({ type: typeTeam.id });
       const allTeamsUnEnhanced = await allTeamsRaw.toArray();
       // console.log("allTeamsUnEnhanced Teams", allTeamsUnEnhanced);
       const allTeams = await allTeamsUnEnhanced.map((noPopulatedFieldsEntity) => (enhanceEntity(noPopulatedFieldsEntity)));
