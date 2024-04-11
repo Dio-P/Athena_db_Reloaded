@@ -1,16 +1,16 @@
-import { entitiesCollection } from "../../index.js";
+import { entitiesCollection, typesCollection, tagsCollection, technologiesCollection } from "../../index.js";
 // import { ObjectId } from "mongodb";
 import { ObjectID } from "bson";
 import { updateWithFolders } from "../../helpers/updateDbDocsLogic.js";
 import { filterOutNonValues } from "../../helpers/queriesHelper.js";
-const toEntity = (entity) => {
-  const { _id, ...entityWithNoId } = entity;
+// const toEntity = (entity) => {
+//   const { _id, ...entityWithNoId } = entity;
 
-  return {
-    id: _id,
-    ...entityWithNoId,
-  };
-};
+//   return {
+//     id: _id,
+//     ...entityWithNoId,
+//   };
+// };
 
 const pathToType = (ofType) => {
   switch(ofType){
@@ -18,6 +18,48 @@ const pathToType = (ofType) => {
   default: return ofType
   }
 } 
+
+const enhanceEntity = async (dbRes) => {
+  const {
+    id,
+    name,
+    type,
+    mainLinks,
+    briefDescription,
+    teamsResponsible,
+    properties: {
+      docs,
+      tags,
+      technologies,
+    },
+    children,
+    connections,
+    interactions,
+  } = dbRes
+
+  const typeObject = await typesCollection.findOne({ id: type });
+  const tagsObject = await tagsCollection.findOne({ id: tags });
+  const technologiesObject = await technologiesCollection.findOne({ id: technologies });
+
+  const enhancedEntity = {
+    id,
+    name,
+    type: typeObject,
+    mainLinks,
+    briefDescription,
+    teamsResponsible,
+    properties: {
+      docs,
+      tags: tagsObject,
+      technologies: technologiesObject,
+    },
+    children,
+    connections,
+    interactions,
+  }
+
+  return enhancedEntity;
+}
 
 export function EntitiesModel() {
   return {
@@ -31,6 +73,8 @@ export function EntitiesModel() {
     async getEntityById(args) {
       console.log('into getEntityById', args);
       const dbRes = await entitiesCollection.findOne({ id: args.id });
+      console.log('dbRes', dbRes);
+      const entity = enhanceEntity(dbRes)
       return dbRes;
     },
 
@@ -48,7 +92,7 @@ export function EntitiesModel() {
         $or: [
           { name: { $regex: queryString } },
           { briefDescription: { $regex: queryString } },
-          { mainLink: { $regex: queryString } },
+          { mainLinks: { $regex: queryString } }, //this was changed to array from string will this work ?
           { leader: { $regex: queryString } },
           // { type: { $regex: queryString}},
         ],
@@ -56,7 +100,7 @@ export function EntitiesModel() {
       // const dbResRaw = await entitiesCollection.find( { $text: { $search: `${queryString}` } } )
       // console.log("dbResRaw:", dbResRaw);{$regex : "son"}
       const dbRes = await dbResRaw.toArray();
-      console.log("dbRes:", dbRes);
+      console.log("filterEntityByQueryStringdbRes@@:", dbRes);
       return dbRes;
     },
 
@@ -68,56 +112,56 @@ export function EntitiesModel() {
         return { [pathToType(arg[0])] : { $not: { $nin: arg[1]} }}
     })})());
 
-      let contructQuery = () => Object.entries(args)
-      .filter((arg) => (
-        arg[1].length >0
-      ))
+      let constructQuery = () => Object.entries(args)
+      // .filter((arg) => (
+      //   arg[1].length >0
+      // ))
       .map((arg) => {
         console.log('arg@@', arg);
         console.log('arg[1]', arg[1]);
         return { [pathToType(arg[0])] : { $not: { $nin: arg[1]} }}
       })
 
-      const { tags, name, type, leader, teamsResponsible, mainLink } = args
+      // const { tags, name, type, leader, teamsResponsible, mainLinks } = args
 
       // id
-      const nameQuery = name ? { "name": { $not: { $nin: name} }} : {}
-      const typeQuery = type? { "type": { $not: { $nin: type} }} : {};
-      const leaderQuery = leader? { "leader": { $not: { $nin: leader} }} : {};
-      const mainLinkQuery = mainLink ? { "mainLink": { $not: { $nin: mainLink} }} : {};
-       // briefDescription
-       const teamsResponsibleQuery = teamsResponsible ? { "teamsResponsible": { $not: { $nin: teamsResponsible} }} : {}
-       const tagsQuery = tags? { "properties.tags": { $not: { $nin: tags} }} : {};
+      // const nameQuery = name ? { "name": { $not: { $nin: name} }} : {}
+      // const typeQuery = type? { "type": { $not: { $nin: type} }} : {};
+      // const leaderQuery = leader? { "leader": { $not: { $nin: leader} }} : {};
+      // const mainLinksQuery = mainLinks ? { "mainLinks": { $not: { $nin: mainLinks} }} : {};
+      //  // briefDescription
+      //  const teamsResponsibleQuery = teamsResponsible ? { "teamsResponsible": { $not: { $nin: teamsResponsible} }} : {}
+      //  const tagsQuery = tags? { "properties.tags": { $not: { $nin: tags} }} : {};
 
       //  console.log("nameQuery@", JSON.stringify(nameQuery));
-     const parameters = { 
-      nameQuery: name ? { "name": { $not: { $nin: name} }} : {},
-      typeQuery: type ? { "type": { $not: { $nin: type} }} : {},
-      leaderQuery: leader ? { "leader": { $not: { $nin: leader} }} : {},
-      mainLinkQuery: mainLink ? { "mainLink": { $not: { $nin: mainLink} }} : {},
-      teamsResponsibleQuery: teamsResponsible ? { "teamsResponsible": { $not: { $nin: teamsResponsible} }} : {},
-      tagsQuery: tags? { "properties.tags": { $not: { $nin: tags} }} : {},
-    } 
+    //  const parameters = { 
+    //   nameQuery: name ? { "name": { $not: { $nin: name} }} : {},
+    //   typeQuery: type ? { "type": { $not: { $nin: type} }} : {},
+    //   leaderQuery: leader ? { "leader": { $not: { $nin: leader} }} : {},
+    //   mainLinksQuery: mainLinks ? { "mainLinks": { $not: { $nin: mainLinks} }} : {},
+    //   teamsResponsibleQuery: teamsResponsible ? { "teamsResponsible": { $not: { $nin: teamsResponsible} }} : {},
+    //   tagsQuery: tags? { "properties.tags": { $not: { $nin: tags} }} : {},
+    // } 
      
     
-      console.log("contructQuery@", contructQuery());
+      // console.log("constructQuery@", constructQuery());
       const dbResRaw = await entitiesCollection.find({
          // and alternative to this is a serach with or - or I could pass the "or" or "and"
         // the problem with this is that as the code stands or returns everything 
         // because of the empty queries. Could I spred a custom object withing the block to fix that ?
         // I don't know what could be more useful
 
-        // $or: Object.values(parameters) // trying to make this work probably the problem is : { $not: { $nin: mainLink} }
+        // $or: Object.values(parameters) // trying to make this work probably the problem is : { $not: { $nin: mainLinks} }
 
         // $and: Object.values(parameters)
-        $and: contructQuery()
+        $and: constructQuery()
       
         // $and: [
         //   tagsQuery,
         //   nameQuery,
         //   typeQuery,
         //   leaderQuery,
-        //   mainLinkQuery,
+        //   mainLinksQuery,
         //   teamsResponsibleQuery
         // ],
       });
@@ -171,7 +215,7 @@ export function EntitiesModel() {
     // },
 
     // async getAllLinks() {
-    //   const dbResRaw = await entitiesCollection.distinct("mainLink");
+    //   const dbResRaw = await entitiesCollection.distinct("mainLinks");
     //   console.log("dbResRaw:", dbResRaw);
     //   return dbResRaw;
     // },
@@ -209,17 +253,17 @@ export function EntitiesModel() {
     //   return dbResRaw
     // },
 
-    // async updateEntityById(args){
-    //   console.log("updateAppById");
-    //   console.log("args.id", args.id);
-    //   // console.log("args.app", args.app);
-    //   await entitiesCollection.updateOne({ _id: ObjectID(args.id) }, {$set:args.app});
-    //   // const app = toApp(dbRes);
-    //   // // console.log("app", app);
-    //   const appToBeReplaced = await entitiesCollection.findOne({ _id: ObjectID(args.id) });;
-    //   console.log("appToBeReplaced", appToBeReplaced);
-    //   return appToBeReplaced
-    // },
+    async updateEntityById(args){
+      console.log("updateAppById");use
+      console.log("args.id", args.id);
+      // console.log("args.app", args.app);
+      await entitiesCollection.updateOne({ _id: ObjectID(args.id) }, {$set:args.app});
+      // const app = toApp(dbRes);
+      // // console.log("app", app);
+      const appToBeReplaced = await entitiesCollection.findOne({ _id: ObjectID(args.id) });;
+      console.log("appToBeReplaced", appToBeReplaced);
+      return appToBeReplaced
+    },
 
     // async getAppWithFoldersById(args){
     //   // console.log("args.id", args.id);

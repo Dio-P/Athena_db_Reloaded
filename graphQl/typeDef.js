@@ -8,22 +8,21 @@ const typeDefs = gql `
   type Entity {
     id: ID!
     name: String
-    type: String
-    mainLink: String
+    type: Type
+    mainLinks: [String]
     briefDescription: String
     teamsResponsible: [String]
     properties: Properties
     children: [String]
     connections: Connections
     interactions: Interactions
-
   }
 
   input EntityInput {
     id: ID!
     name: String
-    type: String
-    mainLink: String
+    type: TypeInput
+    mainLinks: [String]
     briefDescription: String
     teamsResponsible: [String]
     properties: PropertiesInput
@@ -32,16 +31,53 @@ const typeDefs = gql `
     interactions: InteractionsInput
   }
 
+  type Type {
+    id: String
+    title: String
+    description: String
+  }
+  
+  input TypeInput {
+    id: String
+    title: String
+    description: String
+  }
+
+  type Tag {
+    id: String
+    title: String
+    description: String
+  }
+  
+  input TagInput {
+    id: String
+    title: String
+    description: String
+  }
+
+  type Technology {
+    id: String
+    title: String
+    description: String
+  }
+  
+  input TechnologyInput {
+    id: String
+    title: String
+    description: String
+  }
+
+
   type Properties {
     docs: [String]
-    tags: [String]
-    technologies: [String]
+    tags: [Tag]
+    technologies: [Technology]
   }
 
   input PropertiesInput {
     docs: [String]
-    tags: [String]
-    technologies: [String]
+    tags: [TagInput]
+    technologies: [TechnologyInput]
   }
 
   type Connections {
@@ -101,9 +137,15 @@ const typeDefs = gql `
 
   type Query {
     getEntityById(id: ID!): Entity
+    getTypeById(id: ID!): Type
+    getTagById(id: ID!): Tag
+    getTechnologyById(id: ID!): Technology
     getChildrenById(ids: [ID]!): [Entity]
     getEveryEntityName: [String]
     getAll(ofType: String!): [String]
+    getAllTypes: [Type]
+    getAllTechnologies: [Technology]
+    getAllTags: [Tag]
     # getAllTypes: [String]
     # getAllLinks: [String]
     # getAllBriefDescriptions: [String]
@@ -113,7 +155,7 @@ const typeDefs = gql `
     # filterTagsBySearchString(queryString: String!): [Entity]
     # filterNamesBySearchString(queryString: String!): [Entity]
     filterEntityByQueryString(queryString: String!): [Entity]
-    customEntitySearch(tags: [String], name: [String], type: [String], leader: [String], teamsResponsible: [String], mainLink: [String] ): [Entity]
+    customEntitySearch(tags: [String], name: [String], type: [String], leader: [String], teamsResponsible: [String], mainLinks: [String] ): [Entity]
     # getAppsName(ids: [ID!]!): [String]
     # getAppWithFoldersById(id: ID!): App
     # getAppByName(name: String!): App
@@ -123,6 +165,9 @@ const typeDefs = gql `
 
   type Mutation {
     addNewEntity(newEntity: EntityInput!): Entity
+    addNewType(newType: TypeInput!): Type
+    addNewTag(newTag: TagInput!): Tag
+    addNewTechnology(newTechnology: TechnologyInput!): Technology
     updateEntityById(id: ID!, entity: EntityInput!): Entity
     # deleteAppById(id: ID!): ID 
     # addNewPart(appID: ID!, newPart: PartInput!, additionalFolders: [FolderInput]): Part

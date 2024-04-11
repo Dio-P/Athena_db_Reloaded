@@ -9,6 +9,9 @@ import bodyParser from 'body-parser';
 const graphqlUrl = '/graphql';
 export let db;
 export let entitiesCollection;
+export let typesCollection;
+export let tagsCollection;
+export let technologiesCollection;
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -29,6 +32,9 @@ MongoClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true })
 .then(client => {
   db = client.db('entities_db');
   entitiesCollection = db.collection('entities');
+  typesCollection = db.collection('types');
+  tagsCollection = db.collection('tags');
+  technologiesCollection = db.collection('technologies');
 })
 
 await new Promise((resolve) => httpServer.listen({ port: 5051 }, resolve));
