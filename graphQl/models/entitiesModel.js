@@ -187,6 +187,15 @@ export function EntitiesModel() {
       return allTeams
     },
 
+    async getAllDocs(){
+      const typeDoc = await typesCollection.findOne({ title: "document" });
+      const allDocEntitiesRaw = await entitiesCollection.find({ type: typeDoc.id });
+      const allDocsUnEnhanced = await allDocEntitiesRaw.toArray();
+      // console.log("allTeamsUnEnhanced Teams", allTeamsUnEnhanced);
+      const allDocEntities = await allDocsUnEnhanced.map((noPopulatedFieldsEntity) => (enhanceEntity(noPopulatedFieldsEntity)));
+      return allDocEntities
+    },
+
         // async filterTagsBySearchString({ queryString }) {
     //   console.log("queryString*", queryString);
     //   const dbResRaw = await entitiesCollection.find({

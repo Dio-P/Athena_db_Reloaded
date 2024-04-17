@@ -147,6 +147,7 @@ const typeDefs = gql `
     getAllTechnologies: [Technology]
     getAllTags: [Tag]
     getAllTeams: [Entity]
+    getAllDocs: [Entity]
     # getAllTypes: [String]
     # getAllLinks: [String]
     # getAllBriefDescriptions: [String]
