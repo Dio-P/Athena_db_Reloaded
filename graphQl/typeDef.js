@@ -167,6 +167,7 @@ const typeDefs = gql `
 
   type Mutation {
     addNewEntity(newEntity: EntityInput!): Entity
+    addNewEntities(newEntities: [EntityInput]): [ID]
     addNewType(newType: TypeInput!): Type
     addNewTag(newTag: TagInput!): Tag
     addNewTechnology(newTechnology: TechnologyInput!): Technology

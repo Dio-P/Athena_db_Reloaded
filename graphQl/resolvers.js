@@ -36,6 +36,7 @@ export function createResolvers(models) {
     },
     Mutation: {
       addNewEntity: async(_, args, ctx) => await models.Entities.addNewEntity(args),
+      addNewEntities: async(_, args, ctx) => await models.Entities.addNewEntities(args),
       addNewType: async(_, args, ctx) => await models.Types.addNewType(args),
       addNewTag: async(_, args, ctx) => await models.Tags.addNewTag(args),
       addNewTechnology: async(_, args, ctx) => await models.Technologies.addNewTechnology(args),

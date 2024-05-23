@@ -70,6 +70,23 @@ export function EntitiesModel() {
     //   return dbRes
     // },
 
+    async addNewEntities({newEntities}){
+      console.log("inside addNewEntities");
+      console.log("newEntities", newEntities);
+      entitiesCollection.insertMany(newEntities);
+      const allNewIds = newEntities.map(async({id}) => {
+
+        const idExists = await entitiesCollection.findOne({ id: id })
+        console.log("idExists", idExists);
+        if(idExists){
+          return idExists.id
+        }
+      }
+    )
+      // const dbRes = await entitiesCollection.findOne({ name: newApp.name });
+      return allNewIds
+    },
+
     async getEntityById(args) {
       console.log('into getEntityById', args);
       const dbRes = await entitiesCollection.findOne({ id: args.id });
