@@ -73,7 +73,7 @@ export function EntitiesModel() {
     async addNewEntities({newEntities}){
       console.log("inside addNewEntities");
       console.log("newEntities", newEntities);
-      entitiesCollection.insertMany(newEntities);
+      await entitiesCollection.insertMany(newEntities);
       const allNewIds = newEntities.map(async({id}) => {
 
         const idExists = await entitiesCollection.findOne({ id: id })
