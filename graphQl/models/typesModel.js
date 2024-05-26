@@ -3,9 +3,9 @@ import { typesCollection } from "../../index.js";
 function TypesModel() {
   return {
     async getTypeById(args) {
-      console.log('into getTypesById', args);
+      // console.log('into getTypesById', args);
       const dbRes = await typesCollection.findOne({ id: args.id });
-      console.log('dbRes', dbRes);
+      // console.log('dbRes', dbRes);
       return dbRes;
     },
     // async getTypeByTitle(args) {
@@ -15,15 +15,15 @@ function TypesModel() {
     //   return dbRes;
     // },
     async addNewType({type}){
-      console.log("inside addNewType");
+      // console.log("inside addNewType");
       typesCollection.insertOne(type);
       const dbRes = await typesCollection.findOne({ name: type.title });
       return dbRes
     },
     async getAllTypes() { 
-      console.log('inside get all types ****************');    
+      console.log('');    
       const allTypes = await typesCollection.find().toArray();
-      console.log('allTypes ==>', allTypes);
+      // console.log('allTypes ==>', allTypes);
       return allTypes;
     },
   }
