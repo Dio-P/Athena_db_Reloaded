@@ -8,6 +8,12 @@ function TypesModel() {
       // console.log('dbRes', dbRes);
       return dbRes;
     },
+    async getTypeByTitle(args) {
+      // console.log('into getTypesById', args);
+      const dbRes = await typesCollection.findOne({ title: args.title.toLowerCase() });
+      // console.log('dbRes', dbRes);
+      return dbRes;
+    },
     // async getTypeByTitle(args) {
     //   console.log('into getTypesByName', args);
     //   const dbRes = await typesCollection.findOne({ title: args.title });

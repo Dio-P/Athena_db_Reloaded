@@ -72,12 +72,14 @@ const typeDefs = gql `
     docs: [String]
     tags: [Tag]
     technologies: [Technology]
+    source: String
   }
 
   input PropertiesInput {
     docs: [String]
     tags: [TagInput]
     technologies: [TechnologyInput]
+    source: String
   }
 
   type Connections {
@@ -138,6 +140,7 @@ const typeDefs = gql `
   type Query {
     getEntityById(id: ID!): Entity
     getTypeById(id: ID!): Type
+    getTypeByTitle(title: String!): Type
     getTagById(id: ID!): Tag
     getTechnologyById(id: ID!): Technology
     getChildrenById(ids: [ID]!): [Entity]
