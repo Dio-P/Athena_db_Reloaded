@@ -21,7 +21,7 @@ const typeDefs = gql `
   input EntityInput {
     id: ID!
     name: String
-    type: TypeInput
+    type: String
     mainLinks: [String]
     briefDescription: String
     teamsResponsible: [String]

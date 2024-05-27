@@ -207,6 +207,8 @@ export function EntitiesModel() {
     async getAllDocs(){
       const typeDoc = await typesCollection.findOne({ title: "document" });
       const allDocEntitiesRaw = await entitiesCollection.find({ type: typeDoc.id });
+      // I need to change to above to match the new structure 
+      
       const allDocsUnEnhanced = await allDocEntitiesRaw.toArray();
       // console.log("allTeamsUnEnhanced Teams", allTeamsUnEnhanced);
       const allDocEntities = await allDocsUnEnhanced.map((noPopulatedFieldsEntity) => (enhanceEntity(noPopulatedFieldsEntity)));
