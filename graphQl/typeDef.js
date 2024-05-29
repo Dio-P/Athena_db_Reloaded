@@ -6,7 +6,7 @@ const typeDefs = gql `
   scalar Date
 
   type Entity {
-    id: ID!
+    id: String!
     name: String
     type: Type
     mainLinks: [String]
@@ -19,7 +19,7 @@ const typeDefs = gql `
   }
 
   input EntityInput {
-    id: ID!
+    id: String!
     name: String
     type: String
     mainLinks: [String]

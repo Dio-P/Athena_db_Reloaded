@@ -30,6 +30,7 @@ function TypesModel() {
       console.log('inside getAllTypes');    
       const allTypes = await typesCollection.find().toArray();
       // console.log('allTypes ==>', allTypes);
+      console.log('allTypes', allTypes);
       return allTypes;
     },
   }
