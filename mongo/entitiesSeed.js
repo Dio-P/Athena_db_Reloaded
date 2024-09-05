@@ -144,7 +144,12 @@ db.entities.insertMany(
     {
       id: "1",
       name: "bbc",
-      type: "5",
+      type: "6", 
+      // type: {
+      //   id: "6",
+      //   title: "document",
+      //   description: "any type of document"
+      // },
       leader: "Tim Davie", 
       mainLinks: ["www.bbc.co.uk"],
       briefDescription: "British Broadcast Corporation",

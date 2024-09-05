@@ -70,24 +70,41 @@ export function EntitiesModel() {
     //   return dbRes
     // },
 
+    async addNewEntities({newEntities}){
+      console.log("inside addNewEntities****");
+      console.log("newEntities", newEntities);
+      await entitiesCollection.insertMany(newEntities);
+      const allNewIds = newEntities.map(async({id}) => {
+
+        const idExists = await entitiesCollection.findOne({ id: id })
+        // console.log("idExists", idExists);
+        if(idExists){
+          return idExists.id
+        }
+      }
+    )
+      // const dbRes = await entitiesCollection.findOne({ name: newApp.name });
+      return allNewIds
+    },
+
     async getEntityById(args) {
-      console.log('into getEntityById', args);
+      // console.log('into getEntityById', args);
       const dbRes = await entitiesCollection.findOne({ id: args.id });
-      console.log('dbRes', dbRes);
+      // console.log('dbRes', dbRes);
       const entity = enhanceEntity(dbRes)
       return dbRes;
     },
 
     async getChildrenById({ ids }) {
-      console.log("inside getChildrenById", ids);
+      // console.log("inside getChildrenById", ids);
       const dbResRaw = await entitiesCollection.find({ id: { $in: ids } });
       const dbRes = await dbResRaw.toArray();
-      console.log("dbRes:", dbRes);
+      // console.log("dbRes:", dbRes);
       return dbRes;
     },
 
     async filterEntityByQueryString({ queryString }) {
-      console.log("queryString: .......>", queryString);
+      // console.log("queryString: .......>", queryString);
       const dbResRaw = await entitiesCollection.find({
         $or: [
           { name: { $regex: queryString } },
@@ -100,25 +117,25 @@ export function EntitiesModel() {
       // const dbResRaw = await entitiesCollection.find( { $text: { $search: `${queryString}` } } )
       // console.log("dbResRaw:", dbResRaw);{$regex : "son"}
       const dbRes = await dbResRaw.toArray();
-      console.log("filterEntityByQueryStringdbRes@@:", dbRes);
+      // console.log("filterEntityByQueryStringdbRes@@:", dbRes);
       return dbRes;
     },
 
     async customEntitySearch(args) {
-      console.log("args*", args);
-      console.log("args*entries", Object.entries(args));
-      console.log("self called funct@@@", (function createQuery() { return Object.entries(args).map((arg) => {
-        console.log('arg@@', arg);
-        return { [pathToType(arg[0])] : { $not: { $nin: arg[1]} }}
-    })})());
+      // console.log("args*", args);
+      // console.log("args*entries", Object.entries(args));
+    //   console.log("self called funct@@@", (function createQuery() { return Object.entries(args).map((arg) => {
+    //     console.log('arg@@', arg);
+    //     return { [pathToType(arg[0])] : { $not: { $nin: arg[1]} }}
+    // })})());
 
       let constructQuery = () => Object.entries(args)
       // .filter((arg) => (
       //   arg[1].length >0
       // ))
       .map((arg) => {
-        console.log('arg@@', arg);
-        console.log('arg[1]', arg[1]);
+        // console.log('arg@@', arg);
+        // console.log('arg[1]', arg[1]);
         return { [pathToType(arg[0])] : { $not: { $nin: arg[1]} }}
       })
 
@@ -166,16 +183,36 @@ export function EntitiesModel() {
         // ],
       });
       const dbRes = await dbResRaw.toArray();
-      console.log("dbRes:", dbRes);
+      // console.log("dbRes:", dbRes);
       return dbRes;
     },
 
     async getAll({ofType}) {
-      console.log('inside getAll@', ofType);
+      // console.log('inside getAll@', ofType);
      
       const dbResRaw = await entitiesCollection.distinct(pathToType(ofType));
-      console.log("dbResRaw:", dbResRaw);
+      // console.log("dbResRaw:", dbResRaw);
       return filterOutNonValues(dbResRaw);
+    },
+
+    async getAllTeams(){
+      const typeTeam = await typesCollection.findOne({ title: "team" });
+      const allTeamsRaw = await entitiesCollection.find({ type: typeTeam.id });
+      const allTeamsUnEnhanced = await allTeamsRaw.toArray();
+      // console.log("allTeamsUnEnhanced Teams", allTeamsUnEnhanced);
+      const allTeams = await allTeamsUnEnhanced.map((noPopulatedFieldsEntity) => (enhanceEntity(noPopulatedFieldsEntity)));
+      return allTeams
+    },
+
+    async getAllDocs(){
+      const typeDoc = await typesCollection.findOne({ title: "document" });
+      const allDocEntitiesRaw = await entitiesCollection.find({ type: typeDoc.id });
+      // I need to change to above to match the new structure 
+      
+      const allDocsUnEnhanced = await allDocEntitiesRaw.toArray();
+      // console.log("allTeamsUnEnhanced Teams", allTeamsUnEnhanced);
+      const allDocEntities = await allDocsUnEnhanced.map((noPopulatedFieldsEntity) => (enhanceEntity(noPopulatedFieldsEntity)));
+      return allDocEntities
     },
 
         // async filterTagsBySearchString({ queryString }) {

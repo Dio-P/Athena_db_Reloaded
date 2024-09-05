@@ -6,7 +6,7 @@ const typeDefs = gql `
   scalar Date
 
   type Entity {
-    id: ID!
+    id: String!
     name: String
     type: Type
     mainLinks: [String]
@@ -19,9 +19,9 @@ const typeDefs = gql `
   }
 
   input EntityInput {
-    id: ID!
+    id: String!
     name: String
-    type: TypeInput
+    type: String
     mainLinks: [String]
     briefDescription: String
     teamsResponsible: [String]
@@ -72,12 +72,14 @@ const typeDefs = gql `
     docs: [String]
     tags: [Tag]
     technologies: [Technology]
+    source: String
   }
 
   input PropertiesInput {
     docs: [String]
     tags: [TagInput]
     technologies: [TechnologyInput]
+    source: String
   }
 
   type Connections {
@@ -138,6 +140,7 @@ const typeDefs = gql `
   type Query {
     getEntityById(id: ID!): Entity
     getTypeById(id: ID!): Type
+    getTypeByTitle(title: String!): Type
     getTagById(id: ID!): Tag
     getTechnologyById(id: ID!): Technology
     getChildrenById(ids: [ID]!): [Entity]
@@ -146,6 +149,8 @@ const typeDefs = gql `
     getAllTypes: [Type]
     getAllTechnologies: [Technology]
     getAllTags: [Tag]
+    getAllTeams: [Entity]
+    getAllDocs: [Entity]
     # getAllTypes: [String]
     # getAllLinks: [String]
     # getAllBriefDescriptions: [String]
@@ -165,6 +170,7 @@ const typeDefs = gql `
 
   type Mutation {
     addNewEntity(newEntity: EntityInput!): Entity
+    addNewEntities(newEntities: [EntityInput]): [ID]
     addNewType(newType: TypeInput!): Type
     addNewTag(newTag: TagInput!): Tag
     addNewTechnology(newTechnology: TechnologyInput!): Technology
